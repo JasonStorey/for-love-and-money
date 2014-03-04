@@ -1,6 +1,7 @@
 #include "tlc_config.h"
 #include <Tlc5940.h>
 #include <math.h>
+#include "User_input.h"
 #include "Channel_group.h"
 #include "Channels.h"
 
@@ -15,6 +16,7 @@ Channel_group MONEY("MONEY", MONEY_CHANNELS, 5, 0, 0, true, off, on, off, millis
 
 void setup() { 
   Serial.begin(9600); // opens serial port, sets data rate to 9600 bps
+  input.init();
   Tlc.init(off);
 }
 
@@ -25,8 +27,10 @@ void loop() {
   LOVE.phase(100, 1);
   
   //MONEY.pinball(100, 5); //Doesn't work .... check timer
-  MONEY.set(off);
-  MONEY.print();
+  MONEY.set(off); // 'off' is currently 'on' because of log curve reversal :(
+  //MONEY.print();
+  
+  Serial.println(input.readButtonState());
 
   Tlc.update();
 }

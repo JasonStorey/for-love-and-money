@@ -8,33 +8,20 @@
 #define OFF 4095
 
 #include "Channels.h"
+#include "Modes.h"
 
 void setup() { 
   Serial.begin(9600); // opens serial port, sets data rate to 9600 bps
   input.init();
   Tlc.init(OFF);
-  
-  WE.setPhase(300);
-  DO.setPhase(250);
-  THIS.setPhase(200);
-  FOR.setPhase(150);
-  LOVE.setPhase(100);
-  AND.setPhase(50);
-  MONEY.setPhase(0);
+  setMode(0);
 }
 
 void loop() {
+  runMode();
   
   //WE.flash(1000, on);
   //LOVE.phase(100, 1);
-  
-  WE.fade(5, 300);
-  DO.fade(5, 300);
-  THIS.fade(5, 300);
-  FOR.fade(5, 300);  
-  LOVE.fade(5, 300);
-  AND.fade(5, 300);  
-  MONEY.fade(5, 300);
 
 //  STAR.fade(15, 300);  
 //  TRACK.fade(15, 300); 

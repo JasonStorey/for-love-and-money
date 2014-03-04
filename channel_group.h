@@ -33,7 +33,7 @@ class Channel_group {
     int _maxBrightness;
     int _minBrightness;
     unsigned long _timer;
-    
+    float R;
 };
 
 #endif

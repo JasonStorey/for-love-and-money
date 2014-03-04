@@ -1,7 +1,5 @@
 #include "Channel_group.h"
 
-float R;
-
 Channel_group::Channel_group(char *name, int *channels, int numOfChannels, int phase, int phaseSpeed, boolean asc, int brightness, int maxBrightness, int minBrightness, unsigned long timer) {
   _name = name;
   _channels = channels;
@@ -49,7 +47,6 @@ void Channel_group::flash(long interval, int startBrightness) {
   int brightness = _phase ? (startBrightness == _maxBrightness ? _maxBrightness : _minBrightness) : (startBrightness == _maxBrightness ? _minBrightness : _maxBrightness);
   set(brightness);
 }
-
 
 void Channel_group::fade(long interval, int resolution) {
   
@@ -123,7 +120,6 @@ int Channel_group::addFactors(int n, int reps) {
   }
   return result;
 }
-
 
 boolean Channel_group::intervalElapsed(long interval) {
   if(millis() - _timer > interval) {

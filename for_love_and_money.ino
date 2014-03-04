@@ -23,8 +23,10 @@ void loop() {
   WE.flash(1000, on);
   TRACK.fade(10, 300);
   LOVE.phase(100, 1);
+  
   //MONEY.pinball(100, 5); //Doesn't work .... check timer
-  //MONEY.print();
+  MONEY.set(off);
+  MONEY.print();
 
   Tlc.update();
 }

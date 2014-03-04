@@ -1,7 +1,7 @@
 #include "User_input.h"
 
 int User_input::init() {
-  
+  // BUTTON
   _buttonPin1 = 2;
   _buttonPin2 = 4;
   _buttonPin3 = 5;
@@ -16,6 +16,18 @@ int User_input::init() {
   _buttonState2 = 0;
   _buttonState3 = 0;
   _buttonState4 = 0;
+
+  // INFINITE ENCODER
+  LLpin = 7;
+  LRpin = 8;
+  
+  pinMode(LLpin, INPUT);
+  pinMode(LRpin, INPUT);
+  
+  encoder0Pos = 1;
+  encoder0PinALast = LOW;
+  n = LOW;
+  sensitivity = 3;
 }
 
 int User_input::readButtonState() {
@@ -39,6 +51,27 @@ int User_input::readButtonState() {
   }
   
   return tempMode;
+}
+
+int User_input::readInfiniteEncoder() {
+  n = digitalRead(LLpin);
+   if ((encoder0PinALast == LOW) && (n == HIGH)) {
+     if (digitalRead(LRpin) == LOW) {
+       encoder0Pos += sensitivity;
+     } else {
+       encoder0Pos -= sensitivity;
+     }
+   }
+   if(encoder0Pos < 1) {
+     encoder0Pos = 1;
+   }
+   
+   if(encoder0Pos > 120) {
+     encoder0Pos = 120;  
+   }
+   encoder0PinALast = n;
+   
+   return encoder0Pos;
 }
 
 User_input input;

@@ -8,6 +8,7 @@ class User_input {
   public:
     int init();
     int readButtonState();
+    int readInfiniteEncoder();
     
   private:
     int _buttonPin1;
@@ -19,6 +20,14 @@ class User_input {
     int _buttonState2;
     int _buttonState3;
     int _buttonState4;
+    
+    int LLpin;
+    int LRpin;
+    
+    int encoder0Pos;
+    int encoder0PinALast;
+    int n;
+    int sensitivity;
     
 };
 

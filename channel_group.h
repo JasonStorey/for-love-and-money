@@ -11,11 +11,12 @@ class Channel_group {
     Channel_group(char *name, int *channels, int numOfChannels, int phase, int phaseSpeed, boolean asc, int brightness, int maxBrightness, int minBrightness, unsigned long timer);
     void set(int brightness);
     void setPercentage(int percent);
+    void setPhase(int phase);
     void print();
     void flash(long interval, int startBrightness);
     void fade(long interval, int resolution);
     void phase(long interval, int offset);
-    void pinball(long interval, int offset);    
+    void pinball(long interval, int offset);   
   
   private:
     boolean intervalElapsed(long interval);

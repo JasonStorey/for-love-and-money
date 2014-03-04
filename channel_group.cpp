@@ -37,6 +37,10 @@ void Channel_group::setPercentage(int percent) {
   _brightness = tempBrightness;
 }
 
+void Channel_group::setPhase(int phase) {
+  _phase = phase;
+};
+
 /* PATTERNS */
 
 void Channel_group::flash(long interval, int startBrightness) {

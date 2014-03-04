@@ -1,5 +1,7 @@
 #include "Channel_group.h"
 
+float R;
+
 Channel_group::Channel_group(char *name, int *channels, int numOfChannels, int phase, int phaseSpeed, boolean asc, int brightness, int maxBrightness, int minBrightness, unsigned long timer) {
   _name = name;
   _channels = channels;
@@ -11,6 +13,8 @@ Channel_group::Channel_group(char *name, int *channels, int numOfChannels, int p
   _maxBrightness = maxBrightness;
   _minBrightness = minBrightness;
   _timer = timer;
+  
+  R = (100 * log10(2))/(log10((_minBrightness - _maxBrightness)));
 }
 
 void Channel_group::set(int brightness) {
@@ -22,34 +26,14 @@ void Channel_group::set(int brightness) {
   _brightness = brightness;
 }
 
-boolean Channel_group::intervalElapsed(long interval) {
-  if(millis() - _timer > interval) {
-    _timer = millis();
-    return true;
-  } else {
-    return false; 
+void Channel_group::setPercentage(int percent) {
+  int channel;
+  int tempBrightness = getLogBrightness(percent);
+  for(int i = 0; i < _numOfChannels; i++) {
+    channel = _channels[i];
+    Tlc.set(channel, tempBrightness);
   }
-}
-
-void Channel_group::print() {
-  Serial.println(_name);
-  Serial.print("1st Ch : ");
-  Serial.println(_channels[0]);
-  Serial.print("No. Ch : ");
-  Serial.println(_numOfChannels);
-  Serial.print("Phase  : ");  
-  Serial.println(_phase);
-  Serial.print("Asc?   : ");
-  Serial.println(_asc);
-  Serial.print("Grp Br : ");  
-  Serial.println(_brightness);
-  Serial.print("Max Br : ");  
-  Serial.println(_maxBrightness);
-  Serial.print("Min Br : ");  
-  Serial.println(_minBrightness); 
-  Serial.print("Timer  : ");  
-  Serial.println(_timer);
-  Serial.println("------------------");  
+  _brightness = tempBrightness;
 }
 
 /* PATTERNS */
@@ -127,7 +111,6 @@ void Channel_group::pinball(long interval, int offset) {
   }
 }
 
-
 /* UTILS */
 
 int Channel_group::addFactors(int n, int reps) {
@@ -138,3 +121,38 @@ int Channel_group::addFactors(int n, int reps) {
   return result;
 }
 
+
+boolean Channel_group::intervalElapsed(long interval) {
+  if(millis() - _timer > interval) {
+    _timer = millis();
+    return true;
+  } else {
+    return false; 
+  }
+}
+
+int Channel_group::getLogBrightness(int interval) {
+  int brightness = _minBrightness;
+  return brightness = pow(2, (interval / R)) - 1 + _maxBrightness;
+}
+
+void Channel_group::print() {
+  Serial.println(_name);
+  Serial.print("1st Ch : ");
+  Serial.println(_channels[0]);
+  Serial.print("No. Ch : ");
+  Serial.println(_numOfChannels);
+  Serial.print("Phase  : ");  
+  Serial.println(_phase);
+  Serial.print("Asc?   : ");
+  Serial.println(_asc);
+  Serial.print("Grp Br : ");  
+  Serial.println(_brightness);
+  Serial.print("Max Br : ");  
+  Serial.println(_maxBrightness);
+  Serial.print("Min Br : ");  
+  Serial.println(_minBrightness); 
+  Serial.print("Timer  : ");  
+  Serial.println(_timer);
+  Serial.println("------------------");  
+}

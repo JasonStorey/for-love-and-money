@@ -14,16 +14,19 @@ Channel_group::Channel_group(char *name, int *channels, int numOfChannels, int p
   _minBrightness = minBrightness;
   _timer = timer;
   
-  R = (100 * log10(2))/(log10((_minBrightness - _maxBrightness)));
+  R = (100 * log10(2)) / (log10((_minBrightness - _maxBrightness)));
 }
 
 void Channel_group::set(int brightness) {
-  int channel;  
-  for(int i = 0; i < _numOfChannels; i++) {
-    channel = _channels[i];
-    Tlc.set(channel, brightness);
-  }
-  _brightness = brightness;
+//  OLD LINEAR JAZZ
+//  int channel;  
+//  for(int i = 0; i < _numOfChannels; i++) {
+//    channel = _channels[i];
+//    Tlc.set(channel, brightness);
+//  }
+//  _brightness = brightness;
+//  Serial.println(getPercentage(brightness - _maxBrightness, _minBrightness - _maxBrightness));
+  setPercentage(getPercentage(brightness - _maxBrightness, _minBrightness - _maxBrightness));
 }
 
 void Channel_group::setPercentage(int percent) {
@@ -132,8 +135,13 @@ boolean Channel_group::intervalElapsed(long interval) {
 }
 
 int Channel_group::getLogBrightness(int interval) {
-  int brightness = _minBrightness;
-  return brightness = pow(2, (interval / R)) - 1 + _maxBrightness;
+  int brightness = brightness = pow(2, (interval / R)) - 1 + _maxBrightness;
+  int reversedBrightness = _minBrightness - brightness + _maxBrightness;
+  return reversedBrightness; // TODO: get smarter. Curve is the wrong way and I'm not smart enough to fix properly.
+}
+
+int Channel_group::getPercentage(int num, int total) {
+  return ((float) num / total) * 100;
 }
 
 void Channel_group::print() {

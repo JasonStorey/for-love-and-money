@@ -20,7 +20,8 @@ class Channel_group {
   private:
     boolean intervalElapsed(long interval);
     int addFactors(int n, int reps);
-    int getLogBrightness(int interval);    
+    int getLogBrightness(int interval);
+    int getPercentage(int num, int total);
 
     char *_name;
     int *_channels;

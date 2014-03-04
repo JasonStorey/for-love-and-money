@@ -6,7 +6,6 @@
 
 int on = 100;
 int off = 4095;
-int percent = 0;
 
 // (name, channels, numOfChannels, phase, phaseSpeed, asc, brightness, maxBrightness, minBrightness, timer)
 Channel_group WE("WE", WE_CHANNELS, 1, 0, 0, true, off, on, off, millis());
@@ -22,17 +21,10 @@ void setup() {
 void loop() {
   
   WE.flash(1000, on);
-  TRACK.fade(20, 100);
+  TRACK.fade(10, 300);
   LOVE.phase(100, 1);
   //MONEY.pinball(100, 5); //Doesn't work .... check timer
-  
-  MONEY.print();
-  MONEY.setPercentage(percent);
-  if(percent == 100) {
-    percent = 0;
-  } else {
-    percent++;
-  } 
+  //MONEY.print();
 
   Tlc.update();
 }

@@ -1,6 +1,10 @@
 #include "User_input.h"
 
 int User_input::init() {
+
+  // POTENTIOMETER
+  analogInPin = A0;
+  
   // BUTTON
   _buttonPin1 = 2;
   _buttonPin2 = 4;
@@ -26,8 +30,11 @@ int User_input::init() {
   
   encoder0Pos = 1;
   encoder0PinALast = LOW;
-  n = LOW;
   sensitivity = 3;
+}
+
+int User_input::readPot() {
+   return analogRead(analogInPin); // 0 - 1023
 }
 
 int User_input::readButtonState() {
@@ -54,24 +61,23 @@ int User_input::readButtonState() {
 }
 
 int User_input::readInfiniteEncoder() {
-  n = digitalRead(LLpin);
-   if ((encoder0PinALast == LOW) && (n == HIGH)) {
-     if (digitalRead(LRpin) == LOW) {
-       encoder0Pos += sensitivity;
-     } else {
-       encoder0Pos -= sensitivity;
-     }
-   }
-   if(encoder0Pos < 1) {
-     encoder0Pos = 1;
-   }
-   
-   if(encoder0Pos > 120) {
-     encoder0Pos = 120;  
-   }
-   encoder0PinALast = n;
-   
-   return encoder0Pos;
+  int n = digitalRead(LLpin);
+  if ((encoder0PinALast == LOW) && (n == HIGH)) {
+    if (digitalRead(LRpin) == LOW) {
+      encoder0Pos += sensitivity;
+    } else {
+      encoder0Pos -= sensitivity;
+    }
+  }
+  if(encoder0Pos < 1) {
+    encoder0Pos = 1;
+  }
+  
+  if(encoder0Pos > 120) {
+    encoder0Pos = 120;  
+  }
+  encoder0PinALast = n;
+  return encoder0Pos;
 }
 
 User_input input;

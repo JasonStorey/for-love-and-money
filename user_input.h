@@ -9,8 +9,11 @@ class User_input {
     int init();
     int readButtonState();
     int readInfiniteEncoder();
+    int readPot();
     
   private:
+    int analogInPin;
+    
     int _buttonPin1;
     int _buttonPin2;
     int _buttonPin3;
@@ -26,9 +29,7 @@ class User_input {
     
     int encoder0Pos;
     int encoder0PinALast;
-    int n;
     int sensitivity;
-    
 };
 
 extern User_input input;

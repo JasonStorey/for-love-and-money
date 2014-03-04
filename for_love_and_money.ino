@@ -30,7 +30,7 @@ void loop() {
   MONEY.set(off); // 'off' is currently 'on' because of log curve reversal :(
   //MONEY.print();
   
-  Serial.println(input.readInfiniteEncoder());
+  Serial.println(input.readPot());
 
   Tlc.update();
 }

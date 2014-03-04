@@ -16,6 +16,8 @@ static int TRACK_BOTTOM_CHANNELS[3] = {20,21,22};
 static int LVE_CHANNELS[4] = {23,24,25,26};
 static int HEART_CHANNELS[3] = {27,28,29};
 
+static int BACK_CHANNELS[1] = {30};
+
 // (name, channels, numOfChannels, phase, phaseSpeed, asc, brightness, maxBrightness, minBrightness, timer)
 Channel_group WE("WE", WE_CHANNELS, 1, 0, 0, true, OFF, ON, OFF, millis());
 Channel_group DO("DO", DO_CHANNELS, 2, 0, 0, true, OFF, ON, OFF, millis());
@@ -31,5 +33,7 @@ Channel_group TRACK_TOP("TRACK_TOP", TRACK_TOP_CHANNELS, 3, 0, 0, true, OFF, ON,
 Channel_group TRACK_BOTTOM("TRACK_BOTTOM", TRACK_BOTTOM_CHANNELS, 3, 0, 0, true, OFF, ON, OFF, millis());
 Channel_group LVE("LVE", LVE_CHANNELS, 4, 0, 0, true, OFF, ON, OFF, millis());
 Channel_group HEART("HEART", HEART_CHANNELS, 3, 0, 0, true, OFF, ON, OFF, millis());
+
+Channel_group BACK("BACK", BACK_CHANNELS, 1, 0, 0, true, OFF, ON, OFF, millis());
 
 #endif

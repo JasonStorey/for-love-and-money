@@ -18,7 +18,8 @@ void initFadeMode() {
   MONEY.configure(0, 0, true, minBrightness, ON, minBrightness, millis());
   
   STAR.configure(0, 0, true, minBrightness, ON, minBrightness, millis());
-  TRACK.configure(0, 0, true, minBrightness, ON, minBrightness, millis());  
+  TRACK.configure(0, 0, true, minBrightness, ON, minBrightness, millis()); 
+  BACK.configure(0, 0, true, minBrightness, ON, minBrightness, millis());   
 }
 
 void fadeMode() {
@@ -32,7 +33,8 @@ void fadeMode() {
   MONEY.fade(5, 300);
   
   STAR.fade(15, 300);  
-  TRACK.fade(15, 300); 
+  TRACK.fade(15, 300);
+  BACK.fade(15, 300);  
 }
 
 /*********************** UTILS ***********************/

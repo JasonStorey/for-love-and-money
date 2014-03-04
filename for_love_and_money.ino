@@ -22,9 +22,6 @@ void loop() {
   
   //WE.flash(1000, on);
   //LOVE.phase(100, 1);
-
-//  STAR.fade(15, 300);  
-//  TRACK.fade(15, 300); 
   
   //MONEY.pinball(100, 5); //Doesn't work .... check timer
   //MONEY.set(off); // 'off' is currently 'on' because of log curve reversal :(

@@ -41,6 +41,16 @@ void Channel_group::setPhase(int phase) {
   _phase = phase;
 };
 
+void Channel_group::configure(int phase, int phaseSpeed, boolean asc, int brightness, int maxBrightness, int minBrightness, unsigned long timer) {
+  _phase = phase;
+  _phaseSpeed = phaseSpeed;
+  _asc = asc;
+  _brightness = brightness;
+  _maxBrightness = maxBrightness;
+  _minBrightness = minBrightness;
+  _timer = timer;
+};
+
 /* PATTERNS */
 
 void Channel_group::flash(long interval, int startBrightness) {

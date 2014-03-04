@@ -4,15 +4,15 @@
 #include "User_input.h"
 #include "Channel_group.h"
 
-int on = 100;
-int off = 4095;
+#define ON 100
+#define OFF 4095
 
 #include "Channels.h"
 
 void setup() { 
   Serial.begin(9600); // opens serial port, sets data rate to 9600 bps
   input.init();
-  Tlc.init(off);
+  Tlc.init(OFF);
   
   WE.setPhase(300);
   DO.setPhase(250);

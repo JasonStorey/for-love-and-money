@@ -12,8 +12,8 @@ void initFadeMode() {
   DO.configure(250, 0, true, minBrightness, ON, minBrightness, millis());
   THIS.configure(200, 0, true, minBrightness, ON, minBrightness, millis());
   FOR.configure(150, 0, true, minBrightness, ON, minBrightness, millis());
-  HEART.configure(130, 0, true, minBrightness, ON, minBrightness, millis());
-  LVE.configure(100, 0, true, minBrightness, ON, minBrightness, millis());
+  HEART.configure(100, 0, true, minBrightness, ON, minBrightness, millis());
+  LVE.configure(130, 0, true, minBrightness, ON, minBrightness, millis());
   AND.configure(50, 0, true, minBrightness, ON, minBrightness, millis());
   MONEY.configure(0, 0, true, minBrightness, ON, minBrightness, millis());
   
@@ -32,7 +32,8 @@ void fadeMode() {
   AND.fade(5, 300);  
   MONEY.fade(5, 300);
   
-  STAR.fade(15, 300);  
+//  STAR.fade(15, 300);
+  STAR.wave(5, 300, 0.5);  
   TRACK.fade(15, 300);
   BACK.fade(15, 300);  
 }

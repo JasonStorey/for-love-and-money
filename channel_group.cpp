@@ -39,7 +39,7 @@ void Channel_group::setPercentage(int percent) {
 
 void Channel_group::setPhase(int phase) {
   _phase = phase;
-};
+}
 
 void Channel_group::configure(int phase, int phaseSpeed, boolean asc, int brightness, int maxBrightness, int minBrightness, unsigned long timer) {
   _phase = phase;
@@ -49,7 +49,9 @@ void Channel_group::configure(int phase, int phaseSpeed, boolean asc, int bright
   _maxBrightness = maxBrightness;
   _minBrightness = minBrightness;
   _timer = timer;
-};
+  
+   R = (100 * log10(2)) / (log10((_minBrightness - _maxBrightness)));
+}
 
 /* PATTERNS */
 
@@ -71,7 +73,6 @@ void Channel_group::fade(long interval, int resolution) {
   int increment = range / resolution;
   
   int brightness = _asc ? _maxBrightness + (phase * increment) : _minBrightness - (phase * increment);  
-  
   if(_phase < resolution) {
     set(brightness);
     _phase++;
@@ -82,6 +83,26 @@ void Channel_group::fade(long interval, int resolution) {
   }
 }
 
+void Channel_group::wave(long interval, int resolution, float offset) {
+  if(!intervalElapsed(interval)) { return; } // Break until interval has passed
+   
+  int range = _minBrightness - _maxBrightness;
+  
+  float something = _asc ? (float)_phase / resolution : (float) (resolution - _phase) / resolution;
+  if(_phase <= resolution) {
+    
+    for(int i = 0; i < _numOfChannels; i++) {      
+      int brightness = (range / 2) + (range / 2) * sin( something * 2.0 * PI + (i * offset));
+      Tlc.set(_channels[i], getLogBrightness(getPercentage(brightness - _maxBrightness, _minBrightness - _maxBrightness)));
+    
+    }
+    _phase++;
+    
+  } else {
+    _phase = 0;
+    wave(0, resolution, offset);
+  }
+}
 void Channel_group::phase(long interval, int offset) {
   
   if(!intervalElapsed(interval)) { return; } // Break until interval has passed

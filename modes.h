@@ -37,6 +37,47 @@ void fadeMode() {
   BACK.fade(15, 300);  
 }
 
+/*********************** WAVE MODE ***********************/
+
+void initWaveMode() {
+  const int minBrightness = 4000;
+  const int middleBrightness = 3000;  
+  const int maxBrightness = 800;
+  
+  // phase, phaseSpeed, asc, brightness, maxBrightness, minBrightness, timer
+  WE.configure(82, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  DO.configure(68, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  THIS.configure(54, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  FOR.configure(42, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  HEART.configure(0, 0, false, minBrightness, ON, minBrightness, millis());
+  LVE.configure(0, 0, true, minBrightness, ON, minBrightness, millis());
+  AND.configure(14, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  MONEY.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  
+  STAR.configure(0, 0, true, middleBrightness, ON, middleBrightness, millis());
+  TRACK.configure(0, 0, true, minBrightness, ON, minBrightness, millis()); 
+  BACK.configure(0, 0, true, minBrightness, ON, minBrightness, millis());
+  TRACK_TOP.configure(0, 0, true, minBrightness, ON, minBrightness, millis()); 
+  TRACK_BOTTOM.configure(0, 0, true, minBrightness, ON, minBrightness, millis());   
+}
+
+void waveMode() {
+  WE.fade(30, 100);
+  DO.fade(30, 100);
+  THIS.fade(30, 100);
+  FOR.fade(30, 100);
+  HEART.wave(25, 40, 1.04);  
+  LVE.wave(8, 40, 1.42);
+  AND.fade(30, 100);
+  MONEY.fade(30, 100);
+  
+  STAR.wave(30, 80, 0.5);  
+  BACK.setPercentage(100);
+
+  TRACK_TOP.phase(100, -1);
+  TRACK_BOTTOM.phase(100, -1);
+}
+
 /*********************** UTILS ***********************/
 
 void setMode(int mode) {
@@ -44,6 +85,10 @@ void setMode(int mode) {
   switch(MODE) {
     case 0:
       initFadeMode();
+      break;
+     
+    case 1:
+      initWaveMode();
       break; 
       
     default:
@@ -56,6 +101,10 @@ void runMode() {
     case 0:
       fadeMode();
       break; 
+      
+    case 1:
+      waveMode();
+      break;
       
     default:
       Serial.println('default');

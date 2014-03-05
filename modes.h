@@ -1,7 +1,7 @@
 #ifndef Modes_h
 #define Modes_h
 
-int MODE = 0;
+int MODE = 1;
 
 /*********************** FADE MODE ***********************/
 
@@ -33,7 +33,7 @@ void fadeMode() {
   MONEY.fade(5, 300);
   
 //  STAR.fade(15, 300);
-  STAR.wave(5, 300, 0.5);  
+  STAR.wave(5, 600, 0.5);  
   TRACK.fade(15, 300);
   BACK.fade(15, 300);  
 }
@@ -79,36 +79,70 @@ void waveMode() {
   TRACK_BOTTOM.phase(100, -1);
 }
 
+/*********************** OFF MODE ***********************/
+
+void initOffMode() {
+ 
+  // phase, phaseSpeed, asc, brightness, maxBrightness, minBrightness, timer
+  WE.configure(0, 0, true, OFF, ON, OFF, millis());
+  DO.configure(0, 0, true, OFF, ON, OFF, millis());
+  THIS.configure(0, 0, true, OFF, ON, OFF, millis());
+  FOR.configure(0, 0, true, OFF, ON, OFF, millis());
+  HEART.configure(0, 0, true, OFF, ON, OFF, millis());
+  LVE.configure(0, 0, true, OFF, ON, OFF, millis());
+  AND.configure(0, 0, true, OFF, ON, OFF, millis());
+  MONEY.configure(0, 0, true, OFF, ON, OFF, millis());
+  
+  STAR.configure(0, 0, true, OFF, ON, OFF, millis());
+  TRACK.configure(0, 0, true, OFF, ON, OFF, millis());
+  BACK.configure(0, 0, true, OFF, ON, OFF, millis());
+  TRACK_TOP.configure(0, 0, true, OFF, ON, OFF, millis());
+  TRACK_BOTTOM.configure(0, 0, true, OFF, ON, OFF, millis());
+}
+
+void offMode() {
+  Tlc.setAll(OFF);
+}
 /*********************** UTILS ***********************/
 
 void setMode(int mode) {
+  if(mode == MODE) { return; }
+  
   MODE = mode;
   switch(MODE) {
-    case 0:
+    case 1:
       initFadeMode();
       break;
      
-    case 1:
+    case 2:
+      initWaveMode();
+      break;
+      
+    case 3:
       initWaveMode();
       break; 
       
     default:
-      Serial.println('default');
+      initOffMode();
   }
 }
 
 void runMode() {
   switch(MODE) {
-    case 0:
+    case 1:
       fadeMode();
       break; 
       
-    case 1:
+    case 2:
+      waveMode();
+      break;
+      
+    case 3:
       waveMode();
       break;
       
     default:
-      Serial.println('default');
+      offMode();
   }
 }
 

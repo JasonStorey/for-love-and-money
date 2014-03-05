@@ -14,10 +14,12 @@ void setup() {
   Serial.begin(9600); // opens serial port, sets data rate to 9600 bps
   input.init();
   Tlc.init(OFF);
-  setMode(0);
 }
 
 void loop() {
+    Serial.println(MODE);
+  setMode(input.readButtonState());
+  
   runMode();
   
   //WE.flash(1000, on);

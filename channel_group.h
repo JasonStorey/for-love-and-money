@@ -2,6 +2,7 @@
 #define Channel_group_h
 
 #include "Arduino.h"
+#include <avr/pgmspace.h>
 #include "tlc_config.h"
 #include "Tlc5940.h"
 
@@ -14,6 +15,8 @@ class Channel_group {
     void setPercentage(int percent);
     void setPhase(int phase);
     void print();
+    void load(prog_uint16_t* pattern);
+    void play();
     void flash(long interval, int startBrightness);
     void fade(long interval, int resolution);
     void wave(long interval, int resolution, float offset);
@@ -37,6 +40,7 @@ class Channel_group {
     int _minBrightness;
     unsigned long _timer;
     float R;
+    prog_uint16_t* _pattern;
 };
 
 #endif

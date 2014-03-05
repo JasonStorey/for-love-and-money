@@ -103,6 +103,18 @@ void Channel_group::wave(long interval, int resolution, float offset) {
     wave(0, resolution, offset);
   }
 }
+
+void Channel_group::load(prog_uint16_t* pattern) {
+  _pattern = pattern;
+}
+
+void Channel_group::play() {
+  for(int i = 0; i < 48; i++) {
+    int val = pgm_read_word_near(_pattern + i);
+    Serial.println(val);
+  }
+}
+
 void Channel_group::phase(long interval, int offset) {
   
   if(!intervalElapsed(interval)) { return; } // Break until interval has passed

@@ -2,6 +2,7 @@
 #include <Tlc5940.h>
 #include <math.h>
 #include "User_input.h"
+#include "Patterns.h"
 #include "Channel_group.h"
 
 #define ON 100
@@ -14,11 +15,15 @@ void setup() {
   Serial.begin(9600); // opens serial port, sets data rate to 9600 bps
   input.init();
   Tlc.init(OFF);
+  setMode(3);
+  
+  WE.load(pattern1);
 }
 
 void loop() {
-    Serial.println(MODE);
-  setMode(input.readButtonState());
+  
+  //Serial.println(MODE);
+  //setMode(input.readButtonState());
   
   runMode();
   
@@ -31,5 +36,5 @@ void loop() {
   
   //Serial.println(input.readPot());
 
-  Tlc.update();
+  //Tlc.update();
 }

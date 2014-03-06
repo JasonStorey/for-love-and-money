@@ -16,25 +16,22 @@ void setup() {
   input.init();
   Tlc.init(OFF);
   setMode(3);
-  
-  WE.load(pattern1);
 }
 
 void loop() {
-  
   //Serial.println(MODE);
   //setMode(input.readButtonState());
-  
+
   runMode();
-  
+
   //WE.flash(1000, on);
   //LOVE.phase(100, 1);
-  
+
   //MONEY.pinball(100, 5); //Doesn't work .... check timer
   //MONEY.set(off); // 'off' is currently 'on' because of log curve reversal :(
   //MONEY.print();
-  
+
   //Serial.println(input.readPot());
 
-  //Tlc.update();
+  Tlc.update();
 }

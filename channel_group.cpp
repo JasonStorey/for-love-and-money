@@ -30,7 +30,8 @@ void Channel_group::set(int brightness) {
 void Channel_group::setPercentage(int percent) {
   int channel;
   int tempBrightness = getLogBrightness(percent);
-  for(int i = 0; i < _numOfChannels; i++) {
+  int i = 0;
+  for(i = 0; i < _numOfChannels; i++) {
     channel = _channels[i];
     Tlc.set(channel, tempBrightness);
   }
@@ -90,8 +91,8 @@ void Channel_group::wave(long interval, int resolution, float offset) {
   
   float something = _asc ? (float)_phase / resolution : (float) (resolution - _phase) / resolution;
   if(_phase <= resolution) {
-    
-    for(int i = 0; i < _numOfChannels; i++) {      
+    int i = 0;
+    for(i = 0; i < _numOfChannels; i++) {      
       int brightness = (range / 2) + (range / 2) * sin( something * 2.0 * PI + (i * offset));
       Tlc.set(_channels[i], getLogBrightness(getPercentage(brightness - _maxBrightness, _minBrightness - _maxBrightness)));
     
@@ -104,14 +105,20 @@ void Channel_group::wave(long interval, int resolution, float offset) {
   }
 }
 
-void Channel_group::load(prog_uint16_t* pattern) {
+void Channel_group::load(prog_uint16_t* pattern, int patternLength) {
   _pattern = pattern;
+  _patternLength = patternLength;
 }
 
-void Channel_group::play() {
-  for(int i = 0; i < 48; i++) {
-    int val = pgm_read_word_near(_pattern + i);
-    Serial.println(val);
+void Channel_group::play(long interval) {
+  if(!intervalElapsed(interval)) { return; } // Break until interval has passed  
+  if(_phase < _patternLength) {
+    int val = pgm_read_word_near(_pattern + _phase);
+    setPercentage(val);
+    _phase++;
+  } else {
+    _phase = 0;
+    play(interval);
   }
 }
 

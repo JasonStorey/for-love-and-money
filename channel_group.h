@@ -15,8 +15,8 @@ class Channel_group {
     void setPercentage(int percent);
     void setPhase(int phase);
     void print();
-    void load(prog_uint16_t* pattern);
-    void play();
+    void load(prog_uint16_t* pattern, int patternLength);
+    void play(long interval);
     void flash(long interval, int startBrightness);
     void fade(long interval, int resolution);
     void wave(long interval, int resolution, float offset);
@@ -41,6 +41,7 @@ class Channel_group {
     unsigned long _timer;
     float R;
     prog_uint16_t* _pattern;
+    int _patternLength;
 };
 
 #endif

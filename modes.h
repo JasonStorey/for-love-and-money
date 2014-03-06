@@ -119,7 +119,7 @@ void setMode(int mode) {
       break;
       
     case 3:
-      initWaveMode();
+      WE.load(pattern1, PATTERN_1_RESOLUTION);
       break; 
       
     default:
@@ -138,7 +138,8 @@ void runMode() {
       break;
       
     case 3:
-      waveMode();
+//      WE.print(); 
+      WE.play(10);
       break;
       
     default:

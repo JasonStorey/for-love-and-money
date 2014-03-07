@@ -4,7 +4,8 @@ var PatternGenerator = function(selector) {
 		container_width = container.width(),
 		container_height = container.height(),
 		resolution = 300,
-		sections = [];
+		sections = [],
+		mouseIsDown = false;
 
 	function init() {
 		var i,
@@ -33,9 +34,21 @@ var PatternGenerator = function(selector) {
 		container.append(sections);
 	}
 
+	function setupMouseListeners(){
+		listenForHover();
+		container.mousedown(function() {
+			mouseIsDown = true;
+		});
+
+		$('body').mouseup(function(){
+			mouseIsDown = false;
+		});
+
+	}
+
 	function listenForHover() {
 		container.mousemove(function(e){			
-			if(e.target.className !== 'section_container') {
+			if(!mouseIsDown || e.target.className !== 'section_container') {
 				return;
 			}
 			moveSection(e.target.children[0], container_height - e.clientY);
@@ -50,7 +63,7 @@ var PatternGenerator = function(selector) {
 		init: function() {
 			init();
 			render();
-			listenForHover();
+			setupMouseListeners();
 		}
 	};
 };

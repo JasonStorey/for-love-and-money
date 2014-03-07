@@ -30,6 +30,22 @@ var PatternGenerator = function(selector) {
 		}
 	}
 
+	function getPattern() {
+		var patternValues = '',
+			pattern;
+
+		for(var i = 0; i < sections.length; i++) {
+
+			patternValues += sections[i].find('.section').height();
+
+			if(i !== sections.length -1)
+				 patternValues += ',';
+		}
+
+		pattern = "#ifndef Patterns_h\n#define Patterns_h\n#define PATTERN_1_RESOLUTION " + resolution + "\nprog_uint16_t pattern1[PATTERN_1_RESOLUTION] PROGMEM = {" + patternValues + "};\n#endif";
+		return pattern;
+	}
+
 	function render() {
 		container.append(sections);
 	}
@@ -64,11 +80,16 @@ var PatternGenerator = function(selector) {
 			init();
 			render();
 			setupMouseListeners();
-		}
+		},
+		getPattern: getPattern
 	};
 };
 
 $(document).ready(function() {
 	var pattern1 = PatternGenerator('.pattern');
 	pattern1.init();
+
+	$('#save').click(function(){
+		console.log(pattern1.getPattern());
+	});
 });

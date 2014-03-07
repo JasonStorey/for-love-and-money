@@ -7,3 +7,23 @@ html, body, div {
 	margin: 0;
 	padding: 0;
 }
+
+.pattern {
+	position: relative;
+	width: 1200px;
+	height: 400px;
+	background: rgb(212, 247, 241);
+}
+
+.section_container {
+	position: absolute;
+	height: 100%;
+}
+
+.section {
+	pointer-events: none;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background: rgb(55, 140, 151);
+}

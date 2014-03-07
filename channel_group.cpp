@@ -85,6 +85,7 @@ void Channel_group::fade(long interval, int resolution) {
 }
 
 void Channel_group::wave(long interval, int resolution, float offset) {
+  
   if(!intervalElapsed(interval)) { return; } // Break until interval has passed
    
   int range = _minBrightness - _maxBrightness;
@@ -95,7 +96,6 @@ void Channel_group::wave(long interval, int resolution, float offset) {
     for(i = 0; i < _numOfChannels; i++) {      
       int brightness = (range / 2) + (range / 2) * sin( something * 2.0 * PI + (i * offset));
       Tlc.set(_channels[i], getLogBrightness(getPercentage(brightness - _maxBrightness, _minBrightness - _maxBrightness)));
-    
     }
     _phase++;
     
@@ -111,7 +111,9 @@ void Channel_group::load(prog_uint16_t* pattern, int patternLength) {
 }
 
 void Channel_group::play(long interval) {
+  
   if(!intervalElapsed(interval)) { return; } // Break until interval has passed  
+  
   if(_phase < _patternLength) {
     int val = pgm_read_word_near(_pattern + _phase);
     setPercentage(val);
@@ -119,6 +121,24 @@ void Channel_group::play(long interval) {
   } else {
     _phase = 0;
     play(interval);
+  }
+}
+
+void Channel_group::play(long interval, int offset) {
+  
+  if(!intervalElapsed(interval)) { return; } // Break until interval has passed  
+  
+  if(_phase < _patternLength) {    
+    int val = 0;
+    int i = 0;    
+    for(i = 0; i < _numOfChannels; i++) {
+      val = pgm_read_word_near(_pattern + ((_phase + (i * offset)) % _patternLength));
+      Tlc.set(_channels[i], getLogBrightness(val));
+    }
+    _phase++;
+  } else {
+    _phase = 0;
+    play(interval, offset);
   }
 }
 
@@ -195,22 +215,22 @@ int Channel_group::getPercentage(int num, int total) {
 }
 
 void Channel_group::print() {
-  Serial.println(_name);
-  Serial.print("1st Ch : ");
-  Serial.println(_channels[0]);
-  Serial.print("No. Ch : ");
-  Serial.println(_numOfChannels);
-  Serial.print("Phase  : ");  
-  Serial.println(_phase);
-  Serial.print("Asc?   : ");
-  Serial.println(_asc);
-  Serial.print("Grp Br : ");  
+//  Serial.println(_name);
+//  Serial.print("1st Ch : ");
+//  Serial.println(_channels[0]);
+//  Serial.print("No. Ch : ");
+//  Serial.println(_numOfChannels);
+//  Serial.print("Phase  : ");  
+//  Serial.println(_phase);
+//  Serial.print("Asc?   : ");
+//  Serial.println(_asc);
+//  Serial.print("Grp Br : ");  
   Serial.println(_brightness);
-  Serial.print("Max Br : ");  
-  Serial.println(_maxBrightness);
-  Serial.print("Min Br : ");  
-  Serial.println(_minBrightness); 
-  Serial.print("Timer  : ");  
-  Serial.println(_timer);
-  Serial.println("------------------");  
+//  Serial.print("Max Br : ");  
+//  Serial.println(_maxBrightness);
+//  Serial.print("Min Br : ");  
+//  Serial.println(_minBrightness); 
+//  Serial.print("Timer  : ");  
+//  Serial.println(_timer);
+//  Serial.println("------------------");  
 }

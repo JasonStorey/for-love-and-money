@@ -119,7 +119,7 @@ void setMode(int mode) {
       break;
       
     case 3:
-      WE.load(pattern1, PATTERN_1_RESOLUTION);
+      LOVE.load(pattern1, PATTERN_1_RESOLUTION);
       break; 
       
     default:
@@ -138,8 +138,7 @@ void runMode() {
       break;
       
     case 3:
-//      WE.print(); 
-      WE.play(10);
+      LOVE.play(10, 1);
       break;
       
     default:

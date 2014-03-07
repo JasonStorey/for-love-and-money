@@ -17,6 +17,7 @@ class Channel_group {
     void print();
     void load(prog_uint16_t* pattern, int patternLength);
     void play(long interval);
+    void play(long interval, int offset);
     void flash(long interval, int startBrightness);
     void fade(long interval, int resolution);
     void wave(long interval, int resolution, float offset);

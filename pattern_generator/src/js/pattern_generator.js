@@ -1,9 +1,9 @@
-var PatternGenerator = function(selector) {
+var PatternGenerator = function(selector, res) {
 
 	var container = $(selector),
 		container_width = container.width(),
 		container_height = container.height(),
-		resolution = 300,
+		resolution = res,
 		sections = [],
 		mouseIsDown = false;
 
@@ -36,7 +36,7 @@ var PatternGenerator = function(selector) {
 
 		for(var i = 0; i < sections.length; i++) {
 
-			patternValues += sections[i].find('.section').height();
+			patternValues += Math.floor((sections[i].find('.section').height() / container_height) * 100);
 
 			if(i !== sections.length -1)
 				 patternValues += ',';
@@ -71,8 +71,8 @@ var PatternGenerator = function(selector) {
 		});
 	}
 
-	function moveSection(sectionElem, mouseY) {
-		$(sectionElem).height(((mouseY / container_height) * 100) + '%');
+	function moveSection(sectionElem, yPos) {
+		$(sectionElem).height(((yPos / container_height) * 100) + '%');
 	}
 
 	return {
@@ -86,7 +86,7 @@ var PatternGenerator = function(selector) {
 };
 
 $(document).ready(function() {
-	var pattern1 = PatternGenerator('.pattern');
+	var pattern1 = PatternGenerator('.pattern', 300);
 	pattern1.init();
 
 	$('#save').click(function(){

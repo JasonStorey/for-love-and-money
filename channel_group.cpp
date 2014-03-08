@@ -130,10 +130,15 @@ void Channel_group::play(long interval, int offset) {
   
   if(_phase < _patternLength) {    
     int val = 0;
-    int i = 0;    
+    int brightness = _minBrightness;
+    int i = 0;  
     for(i = 0; i < _numOfChannels; i++) {
       val = pgm_read_word_near(_pattern + ((_phase + (i * offset)) % _patternLength));
-      Tlc.set(_channels[i], getLogBrightness(val));
+      brightness = getLogBrightness(val);
+      Tlc.set(_channels[i], brightness);
+      if(i == 0) {
+        _brightness = brightness;
+      }
     }
     _phase++;
   } else {
@@ -215,22 +220,22 @@ int Channel_group::getPercentage(int num, int total) {
 }
 
 void Channel_group::print() {
-//  Serial.println(_name);
-//  Serial.print("1st Ch : ");
-//  Serial.println(_channels[0]);
-//  Serial.print("No. Ch : ");
-//  Serial.println(_numOfChannels);
-//  Serial.print("Phase  : ");  
-//  Serial.println(_phase);
-//  Serial.print("Asc?   : ");
-//  Serial.println(_asc);
-//  Serial.print("Grp Br : ");  
+  Serial.println(_name);
+  Serial.print("1st Ch : ");
+  Serial.println(_channels[0]);
+  Serial.print("No. Ch : ");
+  Serial.println(_numOfChannels);
+  Serial.print("Phase  : ");  
+  Serial.println(_phase);
+  Serial.print("Asc?   : ");
+  Serial.println(_asc);
+  Serial.print("Grp Br : ");  
   Serial.println(_brightness);
-//  Serial.print("Max Br : ");  
-//  Serial.println(_maxBrightness);
-//  Serial.print("Min Br : ");  
-//  Serial.println(_minBrightness); 
-//  Serial.print("Timer  : ");  
-//  Serial.println(_timer);
-//  Serial.println("------------------");  
+  Serial.print("Max Br : ");  
+  Serial.println(_maxBrightness);
+  Serial.print("Min Br : ");  
+  Serial.println(_minBrightness); 
+  Serial.print("Timer  : ");  
+  Serial.println(_timer);
+  Serial.println("------------------");  
 }

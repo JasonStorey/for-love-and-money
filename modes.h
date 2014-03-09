@@ -67,16 +67,16 @@ void initFadeMode() {
 }
 
 void fadeMode() {
-  WE.fade(15, 100);
-  DO.fade(15, 100);
-  THIS.fade(15, 100);
-  FOR.fade(15, 100);
-  HEART.fade(15, 100);  
-  LVE.fade(15, 100);
-  AND.fade(15, 100);  
-  MONEY.fade(15, 100);
+  WE.fade(30, 100);
+  DO.fade(30, 100);
+  THIS.fade(30, 100);
+  FOR.fade(30, 100);
+  HEART.fade(30, 100);  
+  LVE.fade(30, 100);
+  AND.fade(30, 100);  
+  MONEY.fade(30, 100);
 
-  STAR.wave(5, 600, 0.5);
+//  STAR.wave(5, 600, 0.5);
   TRACK.setPercentage(50);
   BACK.setPercentage(80);
 }
@@ -127,6 +127,15 @@ void waveMode() {
 void initPatternMode() {
   initOffMode();
   
+  WE.configure(60, 0, true, OFF, ON, OFF, millis());
+  DO.configure(50, 0, true, OFF, ON, OFF, millis());
+  THIS.configure(40, 0, true, OFF, ON, OFF, millis());
+  FOR.configure(30, 0, true, OFF, ON, OFF, millis());
+  HEART.configure(20, 0, false, OFF, ON, OFF, millis());
+  LVE.configure(25, 0, true, OFF, ON, OFF, millis());
+  AND.configure(10, 0, true, OFF, ON, OFF, millis());
+  MONEY.configure(0, 0, true, OFF, ON, OFF, millis());
+  
   WE.load(pattern1, PATTERN_1_RESOLUTION);
   DO.load(pattern1, PATTERN_1_RESOLUTION);
   THIS.load(pattern1, PATTERN_1_RESOLUTION);
@@ -138,26 +147,22 @@ void initPatternMode() {
   
   STAR.load(pattern1, PATTERN_1_RESOLUTION);
   TRACK.load(pattern1, PATTERN_1_RESOLUTION);
-  BACK.load(pattern1, PATTERN_1_RESOLUTION);
-  TRACK_TOP.load(pattern1, PATTERN_1_RESOLUTION);
-  TRACK_BOTTOM.load(pattern1, PATTERN_1_RESOLUTION);  
 }
 
 void patternMode() {
-  WE.play(20, 5);
-  DO.play(20, 5);
-  THIS.play(20, 5);
-  FOR.play(20, 5);
-  HEART.play(20, 5);
-  LVE.play(20, 5);
-  AND.play(20, 5);
-  MONEY.play(20, 5);
+  WE.play(30, 0);
+  DO.play(30, 0);
+  THIS.play(30, 0);
+  FOR.play(30, 0);
+  HEART.play(30, 3);
+  LVE.play(30, 0);
+  AND.play(30, 0);
+  MONEY.play(30, 0);
   
-  STAR.play(20, 5);
-  BACK.play(20, 5);
+  STAR.setPercentage(80);
+  BACK.setPercentage(80);
 
-  TRACK_TOP.play(20, 5);
-  TRACK_BOTTOM.play(20, 5);
+  TRACK.setPercentage(80);
 }
 
 /*********************** UTILS ***********************/

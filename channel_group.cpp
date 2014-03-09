@@ -132,7 +132,7 @@ void Channel_group::play(long interval, int offset) {
   
   if(!intervalElapsed(interval)) { return; } // Break until interval has passed  
   
-  if(_phase < _patternLength) {    
+  if(_phase < _patternLength && _phase >= 0) {    
     int val = 0;
     int brightness = _minBrightness;
     int i = 0;  
@@ -145,9 +145,9 @@ void Channel_group::play(long interval, int offset) {
         _brightness = brightness;
       }
     }
-    _phase++;
+    _phase = _asc ? _phase + 1 : _phase - 1;
   } else {
-    _phase = 0;
+    _phase = _asc ? 0 : _patternLength - 1;
     play(interval, offset);
   }
 }

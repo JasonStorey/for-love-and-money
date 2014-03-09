@@ -128,19 +128,21 @@ void Channel_group::play(long interval) {
   }
 }
 
-void Channel_group::play(long interval, int offset) {
+void Channel_group::play(long interval, int offset, boolean rev) {
   
   if(!intervalElapsed(interval)) { return; } // Break until interval has passed  
   
-  if(_phase < _patternLength && _phase >= 0) {    
+  if(_phase < _patternLength && _phase >= 0) { 
     int val = 0;
     int brightness = _minBrightness;
     int i = 0;  
+    int channel;
     for(i = 0; i < _numOfChannels; i++) {
       val = pgm_read_word_near(_pattern + ((_phase + (i * offset)) % _patternLength));
       val = _systemBrightness * val;
       brightness = getLogBrightness(val);
-      Tlc.set(_channels[i], brightness);
+      channel = rev ? _channels[_numOfChannels - i - 1] : _channels[i];
+      Tlc.set(channel, brightness);
       if(i == 0) {
         _brightness = brightness;
       }
@@ -148,7 +150,7 @@ void Channel_group::play(long interval, int offset) {
     _phase = _asc ? _phase + 1 : _phase - 1;
   } else {
     _phase = _asc ? 0 : _patternLength - 1;
-    play(interval, offset);
+    play(interval, offset, rev);
   }
 }
 

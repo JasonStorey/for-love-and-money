@@ -64,7 +64,6 @@ var PatternGenerator = function(selector, res) {
 		$('body').mouseup(function(){
 			mouseIsDown = false;
 		});
-
 	}
 
 	function listenForHover() {
@@ -135,7 +134,7 @@ var FileLoader = function(pattern) {
 }
 
 $(document).ready(function() {
-	var pattern1 = PatternGenerator('.pattern', 300);
+	var pattern1 = PatternGenerator('.pattern', 100);
 	pattern1.init();
 
 	var fileLoader = FileLoader(pattern1);

@@ -79,6 +79,62 @@ void waveMode() {
   TRACK_BOTTOM.phase(100, -1);
 }
 
+/*********************** PATTERN MODE ***********************/
+
+void initPatternMode() {
+  const int minBrightness = OFF;
+  const int middleBrightness = OFF;  
+  const int maxBrightness = ON;
+  
+  // phase, phaseSpeed, asc, brightness, maxBrightness, minBrightness, timer
+  WE.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  DO.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  THIS.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  FOR.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  HEART.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  LVE.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  AND.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  MONEY.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  
+  STAR.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  TRACK.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  BACK.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  TRACK_TOP.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  TRACK_BOTTOM.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+  
+  WE.load(pattern1, PATTERN_1_RESOLUTION);
+  DO.load(pattern1, PATTERN_1_RESOLUTION);
+  THIS.load(pattern1, PATTERN_1_RESOLUTION);
+  FOR.load(pattern1, PATTERN_1_RESOLUTION);
+  HEART.load(pattern1, PATTERN_1_RESOLUTION);
+  LVE.load(pattern1, PATTERN_1_RESOLUTION);
+  AND.load(pattern1, PATTERN_1_RESOLUTION);
+  MONEY.load(pattern1, PATTERN_1_RESOLUTION);
+  
+  STAR.load(pattern1, PATTERN_1_RESOLUTION);
+  TRACK.load(pattern1, PATTERN_1_RESOLUTION);
+  BACK.load(pattern1, PATTERN_1_RESOLUTION);
+  TRACK_TOP.load(pattern1, PATTERN_1_RESOLUTION);
+  TRACK_BOTTOM.load(pattern1, PATTERN_1_RESOLUTION);  
+}
+
+void patternMode() {
+  WE.play(30, 5);
+  DO.play(30, 5);
+  THIS.play(30, 5);
+  FOR.play(30, 5);
+  HEART.play(30, 5);
+  LVE.play(30, 5);
+  AND.play(30, 5);
+  MONEY.play(30, 5);
+  
+  STAR.play(30, 5);
+  BACK.play(30, 5);
+
+  TRACK_TOP.play(30, 5);
+  TRACK_BOTTOM.play(30, 5);
+}
+
 /*********************** OFF MODE ***********************/
 
 void initOffMode() {
@@ -119,7 +175,7 @@ void setMode(int mode) {
       break;
       
     case 3:
-      LOVE.load(pattern1, PATTERN_1_RESOLUTION);
+      initPatternMode();
       break; 
       
     default:
@@ -138,7 +194,7 @@ void runMode() {
       break;
       
     case 3:
-      LOVE.play(10, 1);
+      patternMode();
       break;
       
     default:

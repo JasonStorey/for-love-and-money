@@ -27,6 +27,7 @@ var PatternGenerator = function(selector, res) {
 
 			section_container.append(section);
 			sections.push(section_container);
+			container.append(sections);			
 		}
 	}
 
@@ -46,8 +47,12 @@ var PatternGenerator = function(selector, res) {
 		return pattern;
 	}
 
-	function render() {
-		container.append(sections);
+	function load(data) {
+		console.log(parsePattern(data));
+	}
+
+	function parsePattern(data) {
+		return data;
 	}
 
 	function setupMouseListeners(){
@@ -78,16 +83,63 @@ var PatternGenerator = function(selector, res) {
 	return {
 		init: function() {
 			init();
-			render();
 			setupMouseListeners();
 		},
-		getPattern: getPattern
+		getPattern: getPattern,
+		load: load
 	};
 };
+
+var FileLoader = function(pattern) {
+
+	function init() {
+		if (window.File && window.FileReader && window.FileList && window.Blob) {
+			document.getElementById('files').addEventListener('change', handleFileSelect, false);
+		} else {
+		  alert('The File APIs are not fully supported in this browser.');
+		}
+	}
+
+	function handleFileSelect(evt) {
+	    var files = evt.target.files; // FileList object
+
+	    // files is a FileList of File objects. List some properties.
+	    var output = [];
+	    for (var i = 0, f; f = files[i]; i++) {
+	      	output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+	                  	f.size, ' bytes, last modified: ',
+	                  	f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+	                  	'</li>');
+	      	readFile(f);
+	    }
+	    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+	}
+
+	function readFile(f) {
+		var reader = new FileReader();
+
+		// Closure to capture the file information.
+		reader.onload = (function(file) {
+			return function(e) {
+				pattern.load(e.target.result);
+			};
+		})(f);
+
+		// Read in the image file as a data URL.
+		reader.readAsText(f);
+	}
+
+	return {
+		init: init
+	}
+}
 
 $(document).ready(function() {
 	var pattern1 = PatternGenerator('.pattern', 300);
 	pattern1.init();
+
+	var fileLoader = FileLoader(pattern1);
+	fileLoader.init();
 
 	$('#save').click(function(){
 		console.log(pattern1.getPattern());

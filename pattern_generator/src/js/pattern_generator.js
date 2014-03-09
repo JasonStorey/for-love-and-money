@@ -5,7 +5,10 @@ var PatternGenerator = function(selector, res) {
 		container_height = container.height(),
 		resolution = res,
 		sections = [],
-		mouseIsDown = false;
+		mouseIsDown = false,
+		startPoint = {x:0,y:0},
+		endPoint = {x:0,y:0},
+		lineDrawMode = false;
 
 	function init() {
 		var i,
@@ -64,6 +67,19 @@ var PatternGenerator = function(selector, res) {
 		$('body').mouseup(function(){
 			mouseIsDown = false;
 		});
+
+		container.dblclick(function(e){
+			moveSection(e.target.children[0], container_height - e.clientY);
+
+			if(lineDrawMode) {
+				startPoint.x = e.clientX;
+				startPoint.y = e.clientY;
+			} else {
+				// draw line
+			}
+
+			lineDrawMode = !lineDrawMode;
+		});
 	}
 
 	function listenForHover() {
@@ -76,6 +92,10 @@ var PatternGenerator = function(selector, res) {
 	}
 
 	function moveSection(sectionElem, yPos) {
+		if(sectionElem.className !== 'section') {
+			return;
+		}
+
 		$(sectionElem).height(((yPos / container_height) * 100) + '%');
 	}
 

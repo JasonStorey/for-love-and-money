@@ -8,7 +8,8 @@ var PatternGenerator = function(selector, res) {
 		mouseIsDown = false,
 		startPoint = {x:0,y:0},
 		endPoint = {x:0,y:0},
-		lineDrawMode = false;
+		lineDrawMode = false,
+		shiftKeyIsDown = false;
 
 	function init() {
 		var i,
@@ -60,8 +61,10 @@ var PatternGenerator = function(selector, res) {
 
 	function setupMouseListeners(){
 		listenForHover();
-		container.mousedown(function() {
+		container.mousedown(function(e) {
 			mouseIsDown = true;
+			shiftKeyIsDown = e.shiftKey;
+			startPoint.y = container_height - e.clientY;
 		});
 
 		$('body').mouseup(function(){
@@ -87,7 +90,9 @@ var PatternGenerator = function(selector, res) {
 			if(!mouseIsDown || e.target.className !== 'section_container') {
 				return;
 			}
-			moveSection(e.target.children[0], container_height - e.clientY);
+
+			var y = shiftKeyIsDown ? startPoint.y : container_height - e.clientY;
+			moveSection(e.target.children[0], y);
 		});
 	}
 

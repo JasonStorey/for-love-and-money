@@ -11,7 +11,7 @@ Channel_group::Channel_group(char *name, int *channels, int numOfChannels, int p
   _maxBrightness = maxBrightness;
   _minBrightness = minBrightness;
   _timer = timer;
-  
+  _systemBrightness = 1.0;
   R = (100 * log10(2)) / (log10((_minBrightness - _maxBrightness)));
 }
 
@@ -29,7 +29,7 @@ void Channel_group::set(int brightness) {
 
 void Channel_group::setPercentage(int percent) {
   int channel;
-  int tempBrightness = getLogBrightness(percent);
+  int tempBrightness = getLogBrightness(_systemBrightness * percent);
   int i = 0;
   for(i = 0; i < _numOfChannels; i++) {
     channel = _channels[i];
@@ -50,8 +50,11 @@ void Channel_group::configure(int phase, int phaseSpeed, boolean asc, int bright
   _maxBrightness = maxBrightness;
   _minBrightness = minBrightness;
   _timer = timer;
-  
    R = (100 * log10(2)) / (log10((_minBrightness - _maxBrightness)));
+}
+
+void Channel_group::setSystemBrightness(float brightness) {
+  _systemBrightness = brightness;
 }
 
 /* PATTERNS */
@@ -95,6 +98,7 @@ void Channel_group::wave(long interval, int resolution, float offset) {
     int i = 0;
     for(i = 0; i < _numOfChannels; i++) {      
       int brightness = (range / 2) + (range / 2) * sin( something * 2.0 * PI + (i * offset));
+      brightness = brightness * _systemBrightness;
       Tlc.set(_channels[i], getLogBrightness(getPercentage(brightness - _maxBrightness, _minBrightness - _maxBrightness)));
     }
     _phase++;
@@ -134,6 +138,7 @@ void Channel_group::play(long interval, int offset) {
     int i = 0;  
     for(i = 0; i < _numOfChannels; i++) {
       val = pgm_read_word_near(_pattern + ((_phase + (i * offset)) % _patternLength));
+      val = _systemBrightness * val;
       brightness = getLogBrightness(val);
       Tlc.set(_channels[i], brightness);
       if(i == 0) {
@@ -152,14 +157,14 @@ void Channel_group::phase(long interval, int offset) {
   if(!intervalElapsed(interval)) { return; } // Break until interval has passed
 
   Tlc.set(_channels[_phase], _minBrightness);
-  
+
   int newPhase = _phase + _phaseSpeed + offset;
   newPhase = newPhase % _numOfChannels;
   if(newPhase < 0) {
     newPhase = newPhase + _numOfChannels; 
   }
   _phase = newPhase;
-  Tlc.set(_channels[newPhase], _maxBrightness);
+  Tlc.set(_channels[newPhase], getLogBrightness(getPercentage(_minBrightness * _systemBrightness, _minBrightness) ));
 }
 
 void Channel_group::pinball(long interval, int offset) {
@@ -209,8 +214,8 @@ boolean Channel_group::intervalElapsed(long interval) {
   }
 }
 
-int Channel_group::getLogBrightness(int interval) {
-  int brightness = brightness = pow(2, (interval / R)) - 1 + _maxBrightness;
+int Channel_group::getLogBrightness(float interval) {
+  int brightness = brightness = pow(2, (interval / R)) + _maxBrightness;
   int reversedBrightness = _minBrightness - brightness + _maxBrightness;
   return reversedBrightness; // TODO: get smarter. Curve is the wrong way and I'm not smart enough to fix properly.
 }

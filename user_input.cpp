@@ -1,9 +1,14 @@
 #include "User_input.h"
 
-int User_input::init() {
+const int numOfReadings = 30;
+int analogueReadings[numOfReadings] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
+int User_input::init() {
+  
   // POTENTIOMETER
   analogInPin = A0;
+  analogueIndex = 0;
+  analogueTotal = 0;
   
   // BUTTON
   _buttonPin1 = 2;
@@ -22,19 +27,23 @@ int User_input::init() {
   _buttonState4 = 0;
 
   // INFINITE ENCODER
-  LLpin = 7;
-  LRpin = 8;
+//  LLpin = 7;
+//  LRpin = 8;
   
-  pinMode(LLpin, INPUT);
-  pinMode(LRpin, INPUT);
+//  pinMode(LLpin, INPUT);
+//  pinMode(LRpin, INPUT);
   
-  encoder0Pos = 1;
-  encoder0PinALast = LOW;
-  sensitivity = 3;
+//  encoder0Pos = 1;
+//  encoder0PinALast = LOW;
+//  sensitivity = 3;
 }
 
 int User_input::readPot() {
-   return analogRead(analogInPin); // 0 - 1023
+  analogueTotal = analogueTotal - analogueReadings[analogueIndex];
+  analogueReadings[analogueIndex] = analogRead(analogInPin); // 0 - 1023
+  analogueTotal = analogueTotal + analogueReadings[analogueIndex];
+  analogueIndex = (analogueIndex + 1) % numOfReadings;
+  return analogueTotal / numOfReadings;
 }
 
 int User_input::readButtonState() {
@@ -61,23 +70,24 @@ int User_input::readButtonState() {
 }
 
 int User_input::readInfiniteEncoder() {
-  int n = digitalRead(LLpin);
-  if ((encoder0PinALast == LOW) && (n == HIGH)) {
-    if (digitalRead(LRpin) == LOW) {
-      encoder0Pos += sensitivity;
-    } else {
-      encoder0Pos -= sensitivity;
-    }
-  }
-  if(encoder0Pos < 1) {
-    encoder0Pos = 1;
-  }
-  
-  if(encoder0Pos > 120) {
-    encoder0Pos = 120;  
-  }
-  encoder0PinALast = n;
-  return encoder0Pos;
+//  int n = digitalRead(LLpin);
+//  if ((encoder0PinALast == LOW) && (n == HIGH)) {
+//    if (digitalRead(LRpin) == LOW) {
+//      encoder0Pos += sensitivity;
+//    } else {
+//      encoder0Pos -= sensitivity;
+//    }
+//  }
+//  if(encoder0Pos < 1) {
+//    encoder0Pos = 1;
+//  }
+//  
+//  if(encoder0Pos > 120) {
+//    encoder0Pos = 120;  
+//  }
+//  encoder0PinALast = n;
+//  return encoder0Pos;
+  return 0;
 }
 
 User_input input;

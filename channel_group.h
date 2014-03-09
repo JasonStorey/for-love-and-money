@@ -23,11 +23,12 @@ class Channel_group {
     void wave(long interval, int resolution, float offset);
     void phase(long interval, int offset);
     void pinball(long interval, int offset);
+    void setSystemBrightness(float brightness);
   
   private:
     boolean intervalElapsed(long interval);
     int addFactors(int n, int reps);
-    int getLogBrightness(int interval);
+    int getLogBrightness(float interval);
     int getPercentage(int num, int total);
 
     char *_name;
@@ -43,6 +44,7 @@ class Channel_group {
     float R;
     prog_uint16_t* _pattern;
     int _patternLength;
+    float _systemBrightness;
 };
 
 #endif

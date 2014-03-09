@@ -13,6 +13,8 @@ class User_input {
     
   private:
     int analogInPin;
+    int analogueIndex;
+    int analogueTotal;
     
     int _buttonPin1;
     int _buttonPin2;

@@ -27,15 +27,17 @@ int User_input::init() {
   _buttonState4 = 0;
 
   // INFINITE ENCODER
-//  LLpin = 7;
-//  LRpin = 8;
+
+  sensitivity = 4;
   
-//  pinMode(LLpin, INPUT);
-//  pinMode(LRpin, INPUT);
-  
-//  encoder0Pos = 1;
-//  encoder0PinALast = LOW;
-//  sensitivity = 3;
+  val; 
+  encoder0PinA = 8;
+  encoder0PinB = 7;
+  encoder0Pos = 0;
+  encoder0PinALast = LOW;
+  n = LOW;
+  pinMode(encoder0PinA, INPUT);
+  pinMode(encoder0PinB, INPUT);
 }
 
 int User_input::readPot() {
@@ -70,24 +72,27 @@ int User_input::readButtonState() {
 }
 
 int User_input::readInfiniteEncoder() {
-//  int n = digitalRead(LLpin);
-//  if ((encoder0PinALast == LOW) && (n == HIGH)) {
-//    if (digitalRead(LRpin) == LOW) {
-//      encoder0Pos += sensitivity;
-//    } else {
-//      encoder0Pos -= sensitivity;
-//    }
-//  }
-//  if(encoder0Pos < 1) {
-//    encoder0Pos = 1;
-//  }
-//  
-//  if(encoder0Pos > 120) {
-//    encoder0Pos = 120;  
-//  }
-//  encoder0PinALast = n;
-//  return encoder0Pos;
-  return 0;
+  int temp = encoder0Pos;
+  n = digitalRead(encoder0PinA);
+  if ((encoder0PinALast == LOW) && (n == HIGH)) {
+    if (digitalRead(encoder0PinB) == LOW) {
+      encoder0Pos--;
+    } else {
+      encoder0Pos++;
+    }
+    
+    if(encoder0Pos > 0) {
+      temp = encoder0Pos;
+    } else {
+      encoder0Pos = 0;
+    }
+    
+    if(encoder0Pos > 15) {
+      encoder0Pos = 15;
+    }
+  } 
+  encoder0PinALast = n;
+  return temp * sensitivity;
 }
 
 User_input input;

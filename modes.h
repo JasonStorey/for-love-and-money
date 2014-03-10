@@ -74,20 +74,20 @@ void initFadeMode() {
   BACK.configure(0, 0, true, OFF, ON, OFF, millis());   
 }
 
-void fadeMode() {
-  WE.fade(30, 100);
-  DO.fade(30, 100);
-  THIS.fade(30, 100);
-  FOR.fade(30, 100);
+void fadeMode(int time) {
+  WE.fade(1 + time, 100);
+  DO.fade(1 + time, 100);
+  THIS.fade(1 + time, 100);
+  FOR.fade(1 + time, 100);
 //  HEART.fade(30, 100);  
-  LVE.fade(30, 100);
-  HEART.play(30, 5, true, false);
-  AND.fade(30, 100);  
-  MONEY.fade(30, 100);
+  LVE.fade(1 + time, 100);
+  HEART.play(1 + time, 5, true, false);
+  AND.fade(1 + time, 100);  
+  MONEY.fade(1 + time, 100);
 
-  STAR.wave(35, 200, 0.5, 1.0);
-  TRACK_TOP.wave(50, 200, 0.9, 0.5);
-  TRACK_BOTTOM.wave(50, 200, 0.9, 0.5);  
+  STAR.wave(6 + time, 200, 0.5, 1.0);
+  TRACK_TOP.wave(21 + time, 200, 0.9, 0.5);
+  TRACK_BOTTOM.wave(21 + time, 200, 0.9, 0.5);  
   BACK.setPercentage(80);
 }
 
@@ -99,38 +99,41 @@ void initWaveMode() {
   const int maxBrightness = ON;
   
   // phase, phaseSpeed, asc, brightness, maxBrightness, minBrightness, timer
-  WE.configure(82, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
-  DO.configure(68, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
-  THIS.configure(54, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
-  FOR.configure(42, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+//  WE.configure(82, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+//  DO.configure(68, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+//  THIS.configure(54, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+//  FOR.configure(42, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
   HEART.configure(0, 0, false, minBrightness, ON, minBrightness, millis());
   LVE.configure(0, 0, true, minBrightness, ON, minBrightness, millis());
-  AND.configure(14, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
-  MONEY.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+//  AND.configure(14, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+//  MONEY.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
   
   STAR.configure(0, 0, true, middleBrightness, ON, middleBrightness, millis());
   TRACK.configure(0, 0, true, minBrightness, ON, minBrightness, millis()); 
   BACK.configure(0, 0, true, minBrightness, ON, minBrightness, millis());
   TRACK_TOP.configure(0, 0, true, minBrightness, ON, minBrightness, millis()); 
-  TRACK_BOTTOM.configure(0, 0, true, minBrightness, ON, minBrightness, millis());   
+  TRACK_BOTTOM.configure(0, 0, true, minBrightness, ON, minBrightness, millis());
+  PINBALL.load(pattern2, PATTERN_2_RESOLUTION);
 }
 
-void waveMode() {
-  WE.fade(30, 100);
-  DO.fade(30, 100);
-  THIS.fade(30, 100);
-  FOR.fade(30, 100);
-  HEART.wave(25, 40, 1.04, 1.0);  
-  LVE.wave(8, 40, 1.42, 1.0);
-  AND.fade(30, 100);
-  MONEY.fade(30, 100);
+void waveMode(int time) {
+//  WE.fade(20 + time, 100);
+//  DO.fade(20 + time, 100);
+//  THIS.fade(20 + time, 100);
+//  FOR.fade(20 + time, 100);
+  HEART.wave(15 + time, 40, 1.04, 1.0);  
+  LVE.wave(1 + time, 40, 1.42, 1.0);
+//  AND.fade(20 + time, 100);
+//  MONEY.fade(20 + time, 100);
   
-  STAR.wave(35, 200, 0.5, 1.0);
+  STAR.wave(15 + time, 70, 0.5, 1.0);
   BACK.setPercentage(100);
-  TRACK_TOP.wave(5, 50, 1.95, 0.7);
-  TRACK_BOTTOM.wave(5, 50, 1.95, 0.7);
+  TRACK_TOP.wave(1 + time, 50, 1.95, 0.7);
+  TRACK_BOTTOM.wave(1 + time, 50, 1.95, 0.7);
 //  TRACK_TOP.phase(100, -1);
 //  TRACK_BOTTOM.phase(100, -1);
+  PINBALL.play(5 + time, 2, false, true);
+
 }
 
 /*********************** PATTERN MODE ***********************/
@@ -158,24 +161,47 @@ void initPatternMode() {
   PINBALL.load(pattern2, PATTERN_2_RESOLUTION);
 }
 
-void patternMode() {
+void patternMode(int time) {
 //  WE.play(15, 0, false, true);
 //  DO.play(15, 0, false, true);
 //  THIS.play(15, 0, false, true);
 //  FOR.play(15, 0, false, true);
-  HEART.play(15, 5, true, true);
-  LVE.play(15, 2, false, true);
+  HEART.play(1 + time, 5, true, true);
+  LVE.play(1 + time, 2, false, true);
 //  AND.play(15, 0, false, true);
 //  
 //  MONEY.pinball(200, 5);
 
-  PINBALL.play(15, 2, false, true);
+  PINBALL.play(1 + time, 2, false, true);
   
-  STAR.wave(10, 100, 0.5, 1.0);
+  STAR.wave(1 + time, 20, 0.5, 1.0);
   BACK.setPercentage(80);
-  TRACK_TOP.wave(5, 50, 1.95, 0.7);
-  TRACK_BOTTOM.wave(5, 50, 1.95, 0.7);
+  TRACK_TOP.wave(1 + time, 6, 1.6, 0.7);
+  TRACK_BOTTOM.wave(1 + time, 6, 1.6, 0.7);
 }
+
+/*********************** CRUDE MODE ***********************/
+
+void initCrudeMode() {
+  initOffMode();
+}
+
+void crudeMode(int time) {
+  WE.flash(15 + time * 5, ON);
+  DO.fade(1 + time * 5, 100);
+  THIS.fade(1 + time * 5, 100);
+  FOR.fade(1 + time * 5, 100);
+  HEART.phase(1 + time * 5, 1);
+  LVE.phase(1 + time * 5, 1);
+  AND.fade(1 + time * 5, 100);
+  
+  MONEY.pinball(200, 5);
+  
+  STAR.phase(1 + time * 5, 1);
+  BACK.setPercentage(80);
+  TRACK_TOP.phase(1 + time * 5, -1);
+  TRACK_BOTTOM.phase(1 + time * 5, -1);
+} 
 
 /*********************** PINBALL MODE ***********************/
 
@@ -183,7 +209,7 @@ void initPinballMode() {
   initOffMode();
 }
 
-void pinballMode() {
+void pinballMode(int time) {
   PINBALL.pinball(100, 12);
 }
 
@@ -203,7 +229,8 @@ void setMode(int mode) {
       break;
       
     case 3:
-      initPatternMode();
+      initCrudeMode();
+//      initPatternMode();
 //      initPinballMode();
       break; 
       
@@ -212,23 +239,26 @@ void setMode(int mode) {
   }
 }
 
-void runMode(int potReading) {
+void runMode(int potReading, int infiniteEncoderReading) {
   
   float systemBrightness = (float)potReading / 1023;
   setSystemBrightness(systemBrightness);
+  
+//  Serial.println(infiniteEncoderReading);
 
   switch(MODE) {
     case 1:
-      fadeMode();
+      fadeMode(infiniteEncoderReading);
       break; 
       
     case 2:
-      waveMode();
+      waveMode(infiniteEncoderReading);
       break;
       
     case 3:
-      patternMode();
-//      pinballMode();
+      crudeMode(infiniteEncoderReading);
+//      patternMode(infiniteEncoderReading);
+//      pinballMode(infiniteEncoderReading);
       break;
       
     default:

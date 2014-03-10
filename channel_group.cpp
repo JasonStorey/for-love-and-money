@@ -151,7 +151,6 @@ void Channel_group::play(long interval, int offset, boolean rev, boolean randomi
         _brightness = brightness;
       }
     }
-    Serial.println(_phase);
     _phase = _asc ? _phase + 1 : _phase - 1;
   } else {
     _phase = _asc ? 0 : _patternLength - 1;

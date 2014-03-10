@@ -26,12 +26,14 @@ class User_input {
     int _buttonState3;
     int _buttonState4;
     
-    int LLpin;
-    int LRpin;
-    
+    int val; 
+    int encoder0PinA;
+    int encoder0PinB;
     int encoder0Pos;
     int encoder0PinALast;
+    int n;
     int sensitivity;
+    
 };
 
 extern User_input input;

@@ -20,7 +20,7 @@ void setup() {
 void loop() {
   
   setMode(input.readButtonState());
-  runMode(input.readPot());
+  runMode(input.readPot(), input.readInfiniteEncoder());
 
   //WE.flash(1000, on);
   //LOVE.phase(100, 1);

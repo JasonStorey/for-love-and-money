@@ -169,6 +169,16 @@ void patternMode() {
   TRACK.setPercentage(80);
 }
 
+/*********************** PINBALL MODE ***********************/
+
+void initPinballMode() {
+  initOffMode();
+}
+
+void pinballMode() {
+  PINBALL.pinball(100, 12);
+}
+
 /*********************** UTILS ***********************/
 
 void setMode(int mode) {
@@ -186,6 +196,7 @@ void setMode(int mode) {
       
     case 3:
       initPatternMode();
+//      initPinballMode();
       break; 
       
     default:
@@ -209,6 +220,7 @@ void runMode(int potReading) {
       
     case 3:
       patternMode();
+//      pinballMode();
       break;
       
     default:

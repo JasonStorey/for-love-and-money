@@ -187,10 +187,9 @@ void Channel_group::pinball(long interval, int offset) {
   if(phase < limit) {
     setPercentage(0);
     for(int i = 0; i < channelsToKeep; i++) {
-      Tlc.set(_channels[_numOfChannels - i - 1], _maxBrightness);
+      Tlc.set(_channels[_numOfChannels - i - 1], _minBrightness - _minBrightness * _systemBrightness);
     }
-    Tlc.set(_channels[channelToLight], _maxBrightness);
-
+    Tlc.set(_channels[channelToLight],  _minBrightness - _minBrightness * _systemBrightness);
     _phase++;
   } else {
     if(cycle < _numOfChannels) {

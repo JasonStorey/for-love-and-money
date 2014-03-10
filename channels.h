@@ -18,6 +18,8 @@ static int HEART_CHANNELS[3] = {27,28,29};
 
 static int BACK_CHANNELS[1] = {30};
 
+static int PINBALL_CHANNELS[12] = {0,1,2,3,4,5,6,7,8,9,10,16};
+
 // (name, channels, numOfChannels, phase, phaseSpeed, asc, brightness, maxBrightness, minBrightness, timer)
 Channel_group WE("WE", WE_CHANNELS, 1, 0, 0, true, OFF, ON, OFF, millis());
 Channel_group DO("DO", DO_CHANNELS, 2, 0, 0, true, OFF, ON, OFF, millis());
@@ -35,5 +37,7 @@ Channel_group LVE("LVE", LVE_CHANNELS, 4, 0, 0, true, OFF, ON, OFF, millis());
 Channel_group HEART("HEART", HEART_CHANNELS, 3, 0, 0, true, OFF, ON, OFF, millis());
 
 Channel_group BACK("BACK", BACK_CHANNELS, 1, 0, 0, true, OFF, ON, OFF, millis());
+
+Channel_group PINBALL("PINBALL", PINBALL_CHANNELS, 12, 0, 0, true, OFF, ON, OFF, millis());
 
 #endif

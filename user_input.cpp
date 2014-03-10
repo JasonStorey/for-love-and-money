@@ -42,7 +42,7 @@ int User_input::init() {
 
 int User_input::readPot() {
   analogueTotal = analogueTotal - analogueReadings[analogueIndex];
-  analogueReadings[analogueIndex] = analogRead(analogInPin); // 0 - 1023
+  analogueReadings[analogueIndex] = 1023 - analogRead(analogInPin); // 0 - 1023
   analogueTotal = analogueTotal + analogueReadings[analogueIndex];
   analogueIndex = (analogueIndex + 1) % numOfReadings;
   return analogueTotal / numOfReadings;

@@ -17,10 +17,10 @@ class Channel_group {
     void print();
     void load(prog_uint16_t* pattern, int patternLength);
     void play(long interval);
-    void play(long interval, int offset, boolean rev);
+    void play(long interval, int offset, boolean rev, boolean randomise);
     void flash(long interval, int startBrightness);
     void fade(long interval, int resolution);
-    void wave(long interval, int resolution, float offset);
+    void wave(long interval, int resolution, float offset, float brightnessDamper);
     void phase(long interval, int offset);
     void pinball(long interval, int offset);
     void setSystemBrightness(float brightness);

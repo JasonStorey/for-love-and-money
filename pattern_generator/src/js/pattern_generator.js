@@ -159,7 +159,7 @@ var FileLoader = function(pattern) {
 }
 
 $(document).ready(function() {
-	var pattern1 = PatternGenerator('.pattern', 100);
+	var pattern1 = PatternGenerator('.pattern', 200);
 	pattern1.init();
 
 	var fileLoader = FileLoader(pattern1);

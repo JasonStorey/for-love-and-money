@@ -87,7 +87,7 @@ void Channel_group::fade(long interval, int resolution) {
   }
 }
 
-void Channel_group::wave(long interval, int resolution, float offset) {
+void Channel_group::wave(long interval, int resolution, float offset, float brightnessDamper) {
   
   if(!intervalElapsed(interval)) { return; } // Break until interval has passed
    
@@ -98,14 +98,14 @@ void Channel_group::wave(long interval, int resolution, float offset) {
     int i = 0;
     for(i = 0; i < _numOfChannels; i++) {      
       int brightness = (range / 2) + (range / 2) * sin( something * 2.0 * PI + (i * offset));
-      brightness = brightness * _systemBrightness;
+      brightness = brightness * _systemBrightness * brightnessDamper;
       Tlc.set(_channels[i], getLogBrightness(getPercentage(brightness - _maxBrightness, _minBrightness - _maxBrightness)));
     }
     _phase++;
     
   } else {
     _phase = 0;
-    wave(0, resolution, offset);
+    wave(0, resolution, offset, brightnessDamper);
   }
 }
 
@@ -128,9 +128,13 @@ void Channel_group::play(long interval) {
   }
 }
 
-void Channel_group::play(long interval, int offset, boolean rev) {
+void Channel_group::play(long interval, int offset, boolean rev, boolean randomise) {
   
-  if(!intervalElapsed(interval)) { return; } // Break until interval has passed  
+  if(!intervalElapsed(interval)) { return; } // Break until interval has passed
+  
+  if(randomise && _phase % 50 == 0) {
+    //_phase = random(_patternLength);
+  }
   
   if(_phase < _patternLength && _phase >= 0) { 
     int val = 0;
@@ -147,10 +151,11 @@ void Channel_group::play(long interval, int offset, boolean rev) {
         _brightness = brightness;
       }
     }
+    Serial.println(_phase);
     _phase = _asc ? _phase + 1 : _phase - 1;
   } else {
     _phase = _asc ? 0 : _patternLength - 1;
-    play(interval, offset, rev);
+    play(interval, offset, rev, true);
   }
 }
 
@@ -170,17 +175,17 @@ void Channel_group::phase(long interval, int offset) {
 }
 
 void Channel_group::pinball(long interval, int offset) {
-  
-  if(!intervalElapsed(interval)) { return; } // Break until interval has passed
+  if(!intervalElapsed(interval) && interval != 0) { return; } // Break until interval has passed
 
   int cycle = _numOfChannels - offset;
   int phase = _phase;
   int limit = addFactors(_numOfChannels, cycle);
   int channelToLight = phase % (limit - offset);
+
   int channelsToKeep = cycle;
   
   if(phase < limit) {
-    set(_minBrightness);
+    setPercentage(0);
     for(int i = 0; i < channelsToKeep; i++) {
       Tlc.set(_channels[_numOfChannels - i - 1], _maxBrightness);
     }
@@ -188,7 +193,7 @@ void Channel_group::pinball(long interval, int offset) {
 
     _phase++;
   } else {
-    if(cycle < _numOfChannels) {   
+    if(cycle < _numOfChannels) {
       pinball(0, offset-1);
     } else {
       _phase = 0;

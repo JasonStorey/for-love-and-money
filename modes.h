@@ -52,17 +52,21 @@ void offMode() {
 
 void initFadeMode() {
   // phase, phaseSpeed, asc, brightness, maxBrightness, minBrightness, timer
-  WE.configure(60, 0, true, OFF, ON, OFF, millis());
-  DO.configure(50, 0, true, OFF, ON, OFF, millis());
-  THIS.configure(40, 0, true, OFF, ON, OFF, millis());
-  FOR.configure(30, 0, true, OFF, ON, OFF, millis());
-  HEART.configure(20, 0, true, OFF, ON, OFF, millis());
+  WE.configure(80, 0, true, OFF, ON, OFF, millis());
+  DO.configure(70, 0, true, OFF, ON, OFF, millis());
+  THIS.configure(60, 0, true, OFF, ON, OFF, millis());
+  FOR.configure(50, 0, true, OFF, ON, OFF, millis());
+  HEART.configure(10, 0, true, OFF, ON, OFF, millis());
   LVE.configure(25, 0, true, OFF, ON, OFF, millis());
-  AND.configure(10, 0, true, OFF, ON, OFF, millis());
+  HEART.load(pattern1, PATTERN_1_RESOLUTION);
+  
+  AND.configure(15, 0, true, OFF, ON, OFF, millis());
   MONEY.configure(0, 0, true, OFF, ON, OFF, millis());
   
   STAR.configure(0, 0, true, OFF, ON, OFF, millis());
   TRACK.configure(0, 0, true, OFF, ON, OFF, millis());
+  TRACK_TOP.configure(0, 0, true, OFF, ON, OFF, millis());
+  TRACK_BOTTOM.configure(0, 0, true, OFF, ON, OFF, millis());
   BACK.configure(0, 0, true, OFF, ON, OFF, millis());   
 }
 
@@ -71,13 +75,15 @@ void fadeMode() {
   DO.fade(30, 100);
   THIS.fade(30, 100);
   FOR.fade(30, 100);
-  HEART.fade(30, 100);  
+//  HEART.fade(30, 100);  
   LVE.fade(30, 100);
+  HEART.play(30, 5, true, false);
   AND.fade(30, 100);  
   MONEY.fade(30, 100);
 
-//  STAR.wave(5, 600, 0.5);
-  TRACK.setPercentage(50);
+  STAR.wave(35, 200, 0.5, 1.0);
+  TRACK_TOP.wave(50, 200, 0.9, 0.5);
+  TRACK_BOTTOM.wave(50, 200, 0.9, 0.5);  
   BACK.setPercentage(80);
 }
 
@@ -110,16 +116,17 @@ void waveMode() {
   DO.fade(30, 100);
   THIS.fade(30, 100);
   FOR.fade(30, 100);
-  HEART.wave(25, 40, 1.04);  
-  LVE.wave(8, 40, 1.42);
+  HEART.wave(25, 40, 1.04, 1.0);  
+  LVE.wave(8, 40, 1.42, 1.0);
   AND.fade(30, 100);
   MONEY.fade(30, 100);
   
-  STAR.wave(30, 80, 0.5);  
+  STAR.wave(35, 200, 0.5, 1.0);
   BACK.setPercentage(100);
-
-  TRACK_TOP.phase(100, -1);
-  TRACK_BOTTOM.phase(100, -1);
+  TRACK_TOP.wave(5, 50, 1.95, 0.7);
+  TRACK_BOTTOM.wave(5, 50, 1.95, 0.7);
+//  TRACK_TOP.phase(100, -1);
+//  TRACK_BOTTOM.phase(100, -1);
 }
 
 /*********************** PATTERN MODE ***********************/
@@ -127,41 +134,38 @@ void waveMode() {
 void initPatternMode() {
   initOffMode();
   
-  WE.configure(60, 0, true, OFF, ON, OFF, millis());
-  DO.configure(50, 0, true, OFF, ON, OFF, millis());
+  WE.configure(180, 0, true, OFF, ON, OFF, millis());
+  DO.configure(24, 0, true, OFF, ON, OFF, millis());
   THIS.configure(40, 0, true, OFF, ON, OFF, millis());
-  FOR.configure(30, 0, true, OFF, ON, OFF, millis());
-  HEART.configure(25, 0, true, OFF, ON, OFF, millis());
-  LVE.configure(20, 0, true, OFF, ON, OFF, millis());
-  AND.configure(10, 0, true, OFF, ON, OFF, millis());
+  FOR.configure(100, 0, true, OFF, ON, OFF, millis());
+  HEART.configure(12, 0, true, OFF, ON, OFF, millis());
+  LVE.configure(140, 0, true, OFF, ON, OFF, millis());
+  AND.configure(48, 0, true, OFF, ON, OFF, millis());
   MONEY.configure(0, 0, true, OFF, ON, OFF, millis());
   
-  WE.load(pattern1, PATTERN_1_RESOLUTION);
-  DO.load(pattern1, PATTERN_1_RESOLUTION);
-  THIS.load(pattern1, PATTERN_1_RESOLUTION);
-  FOR.load(pattern1, PATTERN_1_RESOLUTION);
-  HEART.load(pattern1, PATTERN_1_RESOLUTION);
-  LVE.load(pattern1, PATTERN_1_RESOLUTION);
-  AND.load(pattern1, PATTERN_1_RESOLUTION);
-  MONEY.load(pattern1, PATTERN_1_RESOLUTION);
-  
-  STAR.load(pattern1, PATTERN_1_RESOLUTION);
-  TRACK.load(pattern1, PATTERN_1_RESOLUTION);
+  WE.load(pattern2, PATTERN_2_RESOLUTION);
+  DO.load(pattern2, PATTERN_2_RESOLUTION);
+  THIS.load(pattern2, PATTERN_2_RESOLUTION);
+  FOR.load(pattern2, PATTERN_2_RESOLUTION);
+  HEART.load(pattern2, PATTERN_2_RESOLUTION);
+  LVE.load(pattern2, PATTERN_2_RESOLUTION);
+  AND.load(pattern2, PATTERN_2_RESOLUTION);
+//  MONEY.load(pattern2, PATTERN_2_RESOLUTION);
 }
 
 void patternMode() {
-  WE.play(30, 0, false);
-  DO.play(30, 0, false);
-  THIS.play(30, 0, false);
-  FOR.play(30, 0, false);
-  HEART.play(30, 3, true);
-  LVE.play(30, 0, false);
-  AND.play(30, 0, false);
-  MONEY.play(30, 0, false);
+  WE.play(15, 0, false, true);
+  DO.play(10, 0, false, true);
+  THIS.play(5, 0, false, true);
+  FOR.play(12, 0, false, true);
+  HEART.play(8, 3, true, true);
+  LVE.play(9, 2, false, true);
+  AND.play(7, 0, false, true);
+//  MONEY.play(11, 0, false, true);
   
+  MONEY.pinball(200, 5); //Doesn't work .... check timer
   STAR.setPercentage(80);
   BACK.setPercentage(80);
-
   TRACK.setPercentage(80);
 }
 

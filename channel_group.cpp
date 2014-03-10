@@ -132,9 +132,9 @@ void Channel_group::play(long interval, int offset, boolean rev, boolean randomi
   
   if(!intervalElapsed(interval)) { return; } // Break until interval has passed
   
-  if(randomise && _phase % 50 == 0) {
-    //_phase = random(_patternLength);
-  }
+//  if(randomise && _phase % 50 == 0) {
+//    _phase = random(_patternLength);
+//  }
   
   if(_phase < _patternLength && _phase >= 0) { 
     int val = 0;

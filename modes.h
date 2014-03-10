@@ -20,6 +20,8 @@ void setSystemBrightness(float brightness) {
   TRACK.setSystemBrightness(brightness);
   TRACK_TOP.setSystemBrightness(brightness);
   TRACK_BOTTOM.setSystemBrightness(brightness);
+  
+  PINBALL.setSystemBrightness(brightness);  
 }
 
 /*********************** OFF MODE ***********************/
@@ -41,6 +43,8 @@ void initOffMode() {
   BACK.configure(0, 0, true, OFF, ON, OFF, millis());
   TRACK_TOP.configure(0, 0, true, OFF, ON, OFF, millis());
   TRACK_BOTTOM.configure(0, 0, true, OFF, ON, OFF, millis());
+
+  PINBALL.configure(0, 0, true, OFF, ON, OFF, millis());
 }
 
 void offMode() {
@@ -143,30 +147,34 @@ void initPatternMode() {
   AND.configure(48, 0, true, OFF, ON, OFF, millis());
   MONEY.configure(0, 0, true, OFF, ON, OFF, millis());
   
-  WE.load(pattern2, PATTERN_2_RESOLUTION);
-  DO.load(pattern2, PATTERN_2_RESOLUTION);
-  THIS.load(pattern2, PATTERN_2_RESOLUTION);
-  FOR.load(pattern2, PATTERN_2_RESOLUTION);
+//  WE.load(pattern2, PATTERN_2_RESOLUTION);
+//  DO.load(pattern2, PATTERN_2_RESOLUTION);
+//  THIS.load(pattern2, PATTERN_2_RESOLUTION);
+//  FOR.load(pattern2, PATTERN_2_RESOLUTION);
   HEART.load(pattern2, PATTERN_2_RESOLUTION);
   LVE.load(pattern2, PATTERN_2_RESOLUTION);
-  AND.load(pattern2, PATTERN_2_RESOLUTION);
-//  MONEY.load(pattern2, PATTERN_2_RESOLUTION);
+//  AND.load(pattern2, PATTERN_2_RESOLUTION);
+  
+  PINBALL.load(pattern2, PATTERN_2_RESOLUTION);
 }
 
 void patternMode() {
-  WE.play(15, 0, false, true);
-  DO.play(10, 0, false, true);
-  THIS.play(5, 0, false, true);
-  FOR.play(12, 0, false, true);
-  HEART.play(8, 3, true, true);
-  LVE.play(9, 2, false, true);
-  AND.play(7, 0, false, true);
-//  MONEY.play(11, 0, false, true);
+//  WE.play(15, 0, false, true);
+//  DO.play(15, 0, false, true);
+//  THIS.play(15, 0, false, true);
+//  FOR.play(15, 0, false, true);
+  HEART.play(15, 5, true, true);
+  LVE.play(15, 2, false, true);
+//  AND.play(15, 0, false, true);
+//  
+//  MONEY.pinball(200, 5);
+
+  PINBALL.play(15, 2, false, true);
   
-  MONEY.pinball(200, 5); //Doesn't work .... check timer
-  STAR.setPercentage(80);
+  STAR.wave(10, 100, 0.5, 1.0);
   BACK.setPercentage(80);
-  TRACK.setPercentage(80);
+  TRACK_TOP.wave(5, 50, 1.95, 0.7);
+  TRACK_BOTTOM.wave(5, 50, 1.95, 0.7);
 }
 
 /*********************** PINBALL MODE ***********************/

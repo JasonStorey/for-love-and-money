@@ -48,3 +48,4 @@ class Channel_group {
 };
 
 #endif
+

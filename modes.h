@@ -48,7 +48,6 @@ void initOffMode() {
 }
 
 void offMode() {
-    Tlc.clear();
     Tlc.setAll(OFF);
 }
 
@@ -201,6 +200,31 @@ void crudeMode(int time) {
   BACK.setPercentage(80);
   TRACK_TOP.phase(1 + time * 5, -1);
   TRACK_BOTTOM.phase(1 + time * 5, -1);
+}
+
+/*********************** CRUDE MODE ***********************/
+
+void initJazzMode() {
+  initOffMode();
+}
+
+void jazzMode() {  
+  WE.flash(100, ON);
+  DO.flash(100, ON);
+//  THIS.flash(100, ON);
+//  FOR.flash(100, ON);
+//  HEART.flash(100, ON);
+  LVE.flash(100, ON);
+//  AND.flash(100, ON);
+//
+//  MONEY.flash(100, ON);
+//  PINBALL.pinball(100, 12);
+
+//
+//  STAR.flash(100, OFF);
+//  BACK.setPercentage(80);
+//  TRACK_TOP.flash(100, OFF);
+//  TRACK_BOTTOM.flash(100, OFF);
 } 
 
 /*********************** PINBALL MODE ***********************/
@@ -230,9 +254,11 @@ void setMode(int mode) {
       
     case 3:
       initCrudeMode();
-//      initPatternMode();
-//      initPinballMode();
-      break; 
+      break;
+    
+    case 5:
+      initJazzMode();
+      break;
       
     default:
       initOffMode();
@@ -243,24 +269,24 @@ void runMode(int potReading, int infiniteEncoderReading) {
   
   float systemBrightness = (float)potReading / 1023;
   setSystemBrightness(systemBrightness);
-  
-//  Serial.println(infiniteEncoderReading);
 
   switch(MODE) {
     case 1:
       fadeMode(infiniteEncoderReading);
       break; 
-      
+
     case 2:
       waveMode(infiniteEncoderReading);
       break;
-      
+
     case 3:
       crudeMode(infiniteEncoderReading);
-//      patternMode(infiniteEncoderReading);
-//      pinballMode(infiniteEncoderReading);
       break;
-      
+
+    case 5:
+      jazzMode();
+      break;
+
     default:
       offMode();
   }

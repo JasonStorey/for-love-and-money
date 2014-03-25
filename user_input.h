@@ -39,3 +39,4 @@ class User_input {
 extern User_input input;
 
 #endif
+

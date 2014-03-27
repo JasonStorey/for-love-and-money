@@ -79,7 +79,7 @@ void fadeMode(int time) {
   THIS.fade(1 + time, 100);
   FOR.fade(1 + time, 100);
   LVE.fade(1 + time, 100);
-  HEART.play(1 + time, 5, true, false);
+//  HEART.play(1 + time, 5, true, false);
   AND.fade(1 + time, 100);  
   MONEY.fade(1 + time, 100);
 

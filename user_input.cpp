@@ -35,7 +35,12 @@ int User_input::init() {
   encoderPinB = 7;
   encoderPosition = 0;
   pinAPrev = LOW;
-  debouceVal = LOW;
+  debounceVal1 = LOW;
+  debounceVal2 = LOW;
+  debounceVal3 = LOW;
+  debounceVal4 = LOW;  
+  debounceVal5 = LOW;
+
   pinAVal = LOW;
   pinMode(encoderPinA, INPUT);
   pinMode(encoderPinB, INPUT);
@@ -82,7 +87,7 @@ int User_input::readInfiniteEncoder() {
   int tempPos = encoderPosition;
   pinAVal = digitalRead(encoderPinA);
   
-  if ((pinAPrev == LOW) && (pinAVal == HIGH) && (debouceVal = HIGH)) {
+  if ((pinAPrev == LOW) && (debounceVal1 = HIGH) && (debounceVal2 = HIGH) && (debounceVal3 = HIGH) && (debounceVal4 = HIGH) && (debounceVal5 = HIGH) && (pinAVal == HIGH)) {
     if (digitalRead(encoderPinB) == LOW) {
       encoderPosition--;
     } else {
@@ -99,8 +104,12 @@ int User_input::readInfiniteEncoder() {
       encoderPosition = 15;
     }
   } 
-  pinAPrev = debouceVal;
-  debouceVal = pinAVal;
+  pinAPrev = debounceVal5;
+  debounceVal5 = debounceVal4;
+  debounceVal4 = debounceVal3; 
+  debounceVal3 = debounceVal2;
+  debounceVal2 = debounceVal1;
+  debounceVal1 = pinAVal;
   return tempPos * sensitivity;
 }
 

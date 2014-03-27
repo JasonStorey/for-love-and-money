@@ -1,3 +1,6 @@
+#include <Wire.h>
+#include <RTClib.h>
+
 #ifndef Modes_h
 #define Modes_h
 

@@ -20,40 +20,32 @@ void setup() {
   Wire.begin();
   RTC.begin();
 
-    Serial.println("START!");
+  Serial.println("START!");
 
   if (! RTC.isrunning()) {
     Serial.println("RTC is NOT running!");
     // following line sets the RTC to the date & time this sketch was compiled
     //RTC.adjust(DateTime(__DATE__, __TIME__));
   }
-    Serial.println("START!");  
 }
 
 void loop() {
   
-  // RTC Library is here - https://github.com/adafruit/RTClib
   DateTime now = RTC.now();
   
-  if(now.hour() > 23) {
-    Serial.print("\t");
-    Serial.println(now.unixtime());
+  if(now.minute() == 0) {
+//    Serial.print(now.hour());
+//    Serial.print(":");    
+//    Serial.print(now.minute());
+//    Serial.print(":");
+//    Serial.print(now.second());
+//    Serial.println(""); 
+    setMode(5);
+  } else {
+    setMode(input.readButtonState());
   }
   
-  
-/***************** STEVE NOTES ***************/
-
-// The two functions below, setMode and runMode, are what run the patterns.
-// Mode 3 seems to kill the Arduino pretty quickly... 
-// Eg. setMode(3)
-
-  setMode(input.readButtonState());
   runMode(input.readPot(), input.readInfiniteEncoder());
-
-// Calling the following also causes strange readings from the RTC, but far less frequently, and rarely killed the Arduino.
-// Tlc.setAll(random(0,4095));
-
-/******************** FIN ******************/
-
+  
   Tlc.update();
 }

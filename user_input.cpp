@@ -50,21 +50,27 @@ int User_input::readPot() {
 
 int User_input::readButtonState() {
   int tempMode = 0;
+  
+  _prevButtonState1 = _buttonState1;
+  _prevButtonState2 = _buttonState2;
+  _prevButtonState3 = _buttonState3;
+  _prevButtonState4 = _buttonState4;
+  
   _buttonState1 = digitalRead(_buttonPin1);
   _buttonState2 = digitalRead(_buttonPin2);
   _buttonState3 = digitalRead(_buttonPin3);
   _buttonState4 = digitalRead(_buttonPin4);
   
-  if(_buttonState1 == 1) {
+  if(_buttonState1 == 1 && _prevButtonState1 == 1) {
     tempMode = 1;
   }
-  if(_buttonState2 == 1) {
+  if(_buttonState2 == 1 && _prevButtonState2 == 1) {
     tempMode = 2;
   }
-  if(_buttonState3 == 1) {
+  if(_buttonState3 == 1 && _prevButtonState3 == 1) {
     tempMode = 3;
   }
-  if(_buttonState4 == 1) {
+  if(_buttonState4 == 1 && _prevButtonState4 == 1) {
     tempMode = 4;
   }
   

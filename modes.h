@@ -1,6 +1,3 @@
-#include <Wire.h>
-#include <RTClib.h>
-
 #ifndef Modes_h
 #define Modes_h
 
@@ -244,8 +241,9 @@ void pinballMode(int time) {
 
 void setMode(int mode) {
   if(mode == MODE || mode == 4) { return; }
-  
+
   MODE = mode;
+  
   switch(MODE) {
     case 1:
       initFadeMode();

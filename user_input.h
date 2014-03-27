@@ -26,6 +26,11 @@ class User_input {
     int _buttonState3;
     int _buttonState4;
     
+    int _prevButtonState1;
+    int _prevButtonState2;
+    int _prevButtonState3;
+    int _prevButtonState4;
+    
     int val; 
     int encoder0PinA;
     int encoder0PinB;

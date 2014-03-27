@@ -36,10 +36,7 @@ int User_input::init() {
   encoderPosition = 0;
   pinAPrev = LOW;
   debounceVal1 = LOW;
-  debounceVal2 = LOW;
-  debounceVal3 = LOW;
-  debounceVal4 = LOW;  
-  debounceVal5 = LOW;
+  timer = millis();
 
   pinAVal = LOW;
   pinMode(encoderPinA, INPUT);
@@ -84,10 +81,16 @@ int User_input::readButtonState() {
 }
 
 int User_input::readInfiniteEncoder() {
+  if(millis() - timer > 3) {
+    timer = millis(); 
+  } else {
+    return encoderPosition * sensitivity;
+  }
+  
   int tempPos = encoderPosition;
   pinAVal = digitalRead(encoderPinA);
   
-  if ((pinAPrev == LOW) && (debounceVal1 = HIGH) && (debounceVal2 = HIGH) && (debounceVal3 = HIGH) && (debounceVal4 = HIGH) && (debounceVal5 = HIGH) && (pinAVal == HIGH)) {
+  if ((pinAPrev == LOW) && (debounceVal1 = HIGH) && (pinAVal == HIGH)) {
     if (digitalRead(encoderPinB) == LOW) {
       encoderPosition--;
     } else {
@@ -104,11 +107,7 @@ int User_input::readInfiniteEncoder() {
       encoderPosition = 15;
     }
   } 
-  pinAPrev = debounceVal5;
-  debounceVal5 = debounceVal4;
-  debounceVal4 = debounceVal3; 
-  debounceVal3 = debounceVal2;
-  debounceVal2 = debounceVal1;
+  pinAPrev = debounceVal1;
   debounceVal1 = pinAVal;
   return tempPos * sensitivity;
 }

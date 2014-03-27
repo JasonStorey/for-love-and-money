@@ -36,12 +36,8 @@ class User_input {
     int encoderPinB;
     int encoderPosition;
     int pinAPrev;
-    int debounceVal1;
-    int debounceVal2;
-    int debounceVal3;
-    int debounceVal4;  
-    int debounceVal5;
-  
+    int debounceVal1;  
+    unsigned long timer;
     int pinAVal;
     int sensitivity;
     

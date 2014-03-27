@@ -24,27 +24,45 @@ void setSystemBrightness(float brightness) {
   PINBALL.setSystemBrightness(brightness);  
 }
 
+void updateChannelGroupClocks(unsigned long time) {
+  WE.updateSystemTime(time);
+  DO.updateSystemTime(time);
+  THIS.updateSystemTime(time);
+  FOR.updateSystemTime(time);
+  HEART.updateSystemTime(time);
+  LVE.updateSystemTime(time);
+  AND.updateSystemTime(time);
+  MONEY.updateSystemTime(time);
+  
+  STAR.updateSystemTime(time);
+  TRACK.updateSystemTime(time);
+  TRACK_TOP.updateSystemTime(time);
+  TRACK_BOTTOM.updateSystemTime(time);
+  BACK.updateSystemTime(time);
+  PINBALL.updateSystemTime(time);  
+}
+
 /*********************** OFF MODE ***********************/
 
 void initOffMode() {
  
   // phase, phaseSpeed, asc, brightness, maxBrightness, minBrightness, timer
-  WE.configure(0, 0, true, OFF, ON, OFF, millis());
-  DO.configure(0, 0, true, OFF, ON, OFF, millis());
-  THIS.configure(0, 0, true, OFF, ON, OFF, millis());
-  FOR.configure(0, 0, true, OFF, ON, OFF, millis());
-  HEART.configure(0, 0, true, OFF, ON, OFF, millis());
-  LVE.configure(0, 0, true, OFF, ON, OFF, millis());
-  AND.configure(0, 0, true, OFF, ON, OFF, millis());
-  MONEY.configure(0, 0, true, OFF, ON, OFF, millis());
+  WE.configure(0, 0, true, OFF, ON, OFF, systemTime);
+  DO.configure(0, 0, true, OFF, ON, OFF, systemTime);
+  THIS.configure(0, 0, true, OFF, ON, OFF, systemTime);
+  FOR.configure(0, 0, true, OFF, ON, OFF, systemTime);
+  HEART.configure(0, 0, true, OFF, ON, OFF, systemTime);
+  LVE.configure(0, 0, true, OFF, ON, OFF, systemTime);
+  AND.configure(0, 0, true, OFF, ON, OFF, systemTime);
+  MONEY.configure(0, 0, true, OFF, ON, OFF, systemTime);
   
-  STAR.configure(0, 0, true, OFF, ON, OFF, millis());
-  TRACK.configure(0, 0, true, OFF, ON, OFF, millis());
-  BACK.configure(0, 0, true, OFF, ON, OFF, millis());
-  TRACK_TOP.configure(0, 0, true, OFF, ON, OFF, millis());
-  TRACK_BOTTOM.configure(0, 0, true, OFF, ON, OFF, millis());
+  STAR.configure(0, 0, true, OFF, ON, OFF, systemTime);
+  TRACK.configure(0, 0, true, OFF, ON, OFF, systemTime);
+  BACK.configure(0, 0, true, OFF, ON, OFF, systemTime);
+  TRACK_TOP.configure(0, 0, true, OFF, ON, OFF, systemTime);
+  TRACK_BOTTOM.configure(0, 0, true, OFF, ON, OFF, systemTime);
 
-  PINBALL.configure(0, 0, true, OFF, ON, OFF, millis());
+  PINBALL.configure(0, 0, true, OFF, ON, OFF, systemTime);
 }
 
 void offMode() {
@@ -55,22 +73,22 @@ void offMode() {
 
 void initFadeMode() {
   // phase, phaseSpeed, asc, brightness, maxBrightness, minBrightness, timer
-  WE.configure(80, 0, true, OFF, ON, OFF, millis());
-  DO.configure(70, 0, true, OFF, ON, OFF, millis());
-  THIS.configure(60, 0, true, OFF, ON, OFF, millis());
-  FOR.configure(50, 0, true, OFF, ON, OFF, millis());
-  HEART.configure(10, 0, true, OFF, ON, OFF, millis());
-  LVE.configure(25, 0, true, OFF, ON, OFF, millis());
+  WE.configure(80, 0, true, OFF, ON, OFF, systemTime);
+  DO.configure(70, 0, true, OFF, ON, OFF, systemTime);
+  THIS.configure(60, 0, true, OFF, ON, OFF, systemTime);
+  FOR.configure(50, 0, true, OFF, ON, OFF, systemTime);
+  HEART.configure(10, 0, true, OFF, ON, OFF, systemTime);
+  LVE.configure(25, 0, true, OFF, ON, OFF, systemTime);
   HEART.load(pattern1, PATTERN_1_RESOLUTION);
   
-  AND.configure(15, 0, true, OFF, ON, OFF, millis());
-  MONEY.configure(0, 0, true, OFF, ON, OFF, millis());
+  AND.configure(15, 0, true, OFF, ON, OFF, systemTime);
+  MONEY.configure(0, 0, true, OFF, ON, OFF, systemTime);
   
-  STAR.configure(0, 0, true, OFF, ON, OFF, millis());
-  TRACK.configure(0, 0, true, OFF, ON, OFF, millis());
-  TRACK_TOP.configure(0, 0, true, OFF, ON, OFF, millis());
-  TRACK_BOTTOM.configure(0, 0, true, OFF, ON, OFF, millis());
-  BACK.configure(0, 0, true, OFF, ON, OFF, millis());   
+  STAR.configure(0, 0, true, OFF, ON, OFF, systemTime);
+  TRACK.configure(0, 0, true, OFF, ON, OFF, systemTime);
+  TRACK_TOP.configure(0, 0, true, OFF, ON, OFF, systemTime);
+  TRACK_BOTTOM.configure(0, 0, true, OFF, ON, OFF, systemTime);
+  BACK.configure(0, 0, true, OFF, ON, OFF, systemTime);   
 }
 
 void fadeMode(int time) {
@@ -79,7 +97,7 @@ void fadeMode(int time) {
   THIS.fade(1 + time, 100);
   FOR.fade(1 + time, 100);
   LVE.fade(1 + time, 100);
-//  HEART.play(1 + time, 5, true, false);
+  HEART.play(1 + time, 5, true, false);
   AND.fade(1 + time, 100);  
   MONEY.fade(1 + time, 100);
 
@@ -97,20 +115,20 @@ void initWaveMode() {
   const int maxBrightness = ON;
   
   // phase, phaseSpeed, asc, brightness, maxBrightness, minBrightness, timer
-//  WE.configure(82, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
-//  DO.configure(68, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
-//  THIS.configure(54, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
-//  FOR.configure(42, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
-  HEART.configure(0, 0, false, minBrightness, ON, minBrightness, millis());
-  LVE.configure(0, 0, true, minBrightness, ON, minBrightness, millis());
-//  AND.configure(14, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
-//  MONEY.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, millis());
+//  WE.configure(82, 0, true, middleBrightness, maxBrightness, middleBrightness, systemTime);
+//  DO.configure(68, 0, true, middleBrightness, maxBrightness, middleBrightness, systemTime);
+//  THIS.configure(54, 0, true, middleBrightness, maxBrightness, middleBrightness, systemTime);
+//  FOR.configure(42, 0, true, middleBrightness, maxBrightness, middleBrightness, systemTime);
+  HEART.configure(0, 0, false, minBrightness, ON, minBrightness, systemTime);
+  LVE.configure(0, 0, true, minBrightness, ON, minBrightness, systemTime);
+//  AND.configure(14, 0, true, middleBrightness, maxBrightness, middleBrightness, systemTime);
+//  MONEY.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, systemTime);
   
-  STAR.configure(0, 0, true, middleBrightness, ON, middleBrightness, millis());
-  TRACK.configure(0, 0, true, minBrightness, ON, minBrightness, millis()); 
-  BACK.configure(0, 0, true, minBrightness, ON, minBrightness, millis());
-  TRACK_TOP.configure(0, 0, true, minBrightness, ON, minBrightness, millis()); 
-  TRACK_BOTTOM.configure(0, 0, true, minBrightness, ON, minBrightness, millis());
+  STAR.configure(0, 0, true, middleBrightness, ON, middleBrightness, systemTime);
+  TRACK.configure(0, 0, true, minBrightness, ON, minBrightness, systemTime); 
+  BACK.configure(0, 0, true, minBrightness, ON, minBrightness, systemTime);
+  TRACK_TOP.configure(0, 0, true, minBrightness, ON, minBrightness, systemTime); 
+  TRACK_BOTTOM.configure(0, 0, true, minBrightness, ON, minBrightness, systemTime);
   PINBALL.load(pattern2, PATTERN_2_RESOLUTION);
 }
 
@@ -139,36 +157,24 @@ void waveMode(int time) {
 void initPatternMode() {
   initOffMode();
   
-  WE.configure(180, 0, true, OFF, ON, OFF, millis());
-  DO.configure(24, 0, true, OFF, ON, OFF, millis());
-  THIS.configure(40, 0, true, OFF, ON, OFF, millis());
-  FOR.configure(100, 0, true, OFF, ON, OFF, millis());
-  HEART.configure(12, 0, true, OFF, ON, OFF, millis());
-  LVE.configure(140, 0, true, OFF, ON, OFF, millis());
-  AND.configure(48, 0, true, OFF, ON, OFF, millis());
-  MONEY.configure(0, 0, true, OFF, ON, OFF, millis());
-  
-//  WE.load(pattern2, PATTERN_2_RESOLUTION);
-//  DO.load(pattern2, PATTERN_2_RESOLUTION);
-//  THIS.load(pattern2, PATTERN_2_RESOLUTION);
-//  FOR.load(pattern2, PATTERN_2_RESOLUTION);
+  WE.configure(180, 0, true, OFF, ON, OFF, systemTime);
+  DO.configure(24, 0, true, OFF, ON, OFF, systemTime);
+  THIS.configure(40, 0, true, OFF, ON, OFF, systemTime);
+  FOR.configure(100, 0, true, OFF, ON, OFF, systemTime);
+  HEART.configure(12, 0, true, OFF, ON, OFF, systemTime);
+  LVE.configure(140, 0, true, OFF, ON, OFF, systemTime);
+  AND.configure(48, 0, true, OFF, ON, OFF, systemTime);
+  MONEY.configure(0, 0, true, OFF, ON, OFF, systemTime);
+
   HEART.load(pattern2, PATTERN_2_RESOLUTION);
   LVE.load(pattern2, PATTERN_2_RESOLUTION);
-//  AND.load(pattern2, PATTERN_2_RESOLUTION);
   
   PINBALL.load(pattern2, PATTERN_2_RESOLUTION);
 }
 
 void patternMode(int time) {
-//  WE.play(15, 0, false, true);
-//  DO.play(15, 0, false, true);
-//  THIS.play(15, 0, false, true);
-//  FOR.play(15, 0, false, true);
   HEART.play(1 + time, 5, true, true);
   LVE.play(1 + time, 2, false, true);
-//  AND.play(15, 0, false, true);
-//  
-//  MONEY.pinball(200, 5);
 
   PINBALL.play(1 + time, 2, false, true);
   
@@ -210,20 +216,7 @@ void initJazzMode() {
 void jazzMode() {  
   WE.flash(100, ON);
   DO.flash(100, ON);
-//  THIS.flash(100, ON);
-//  FOR.flash(100, ON);
-//  HEART.flash(100, ON);
   LVE.flash(100, ON);
-//  AND.flash(100, ON);
-//
-//  MONEY.flash(100, ON);
-//  PINBALL.pinball(100, 12);
-
-//
-//  STAR.flash(100, OFF);
-//  BACK.setPercentage(80);
-//  TRACK_TOP.flash(100, OFF);
-//  TRACK_BOTTOM.flash(100, OFF);
 } 
 
 /*********************** PINBALL MODE ***********************/
@@ -269,7 +262,8 @@ void runMode(int potReading, int infiniteEncoderReading) {
   
   float systemBrightness = (float)potReading / 1023;
   setSystemBrightness(systemBrightness);
-
+  updateChannelGroupClocks(systemTime);
+  
   switch(MODE) {
     case 1:
       fadeMode(infiniteEncoderReading);

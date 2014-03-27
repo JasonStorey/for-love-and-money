@@ -24,6 +24,7 @@ class Channel_group {
     void phase(long interval, int offset);
     void pinball(long interval, int offset);
     void setSystemBrightness(float brightness);
+    void updateSystemTime(unsigned long systemTime);  
   
   private:
     boolean intervalElapsed(long interval);
@@ -41,6 +42,7 @@ class Channel_group {
     int _maxBrightness;
     int _minBrightness;
     unsigned long _timer;
+    unsigned long _systemTime;    
     float R;
     prog_uint16_t* _pattern;
     int _patternLength;

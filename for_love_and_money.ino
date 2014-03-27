@@ -30,7 +30,7 @@ void setup() {
 }
 
 void loop() {
-  
+  systemTime = millis();
   DateTime now = RTC.now();
   
   if(now.minute() == 0) {

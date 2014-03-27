@@ -20,25 +20,27 @@ static int BACK_CHANNELS[1] = {30};
 
 static int PINBALL_CHANNELS[12] = {0,1,2,3,4,5,6,7,8,9,10,16};
 
+unsigned long systemTime = millis();
+
 // (name, channels, numOfChannels, phase, phaseSpeed, asc, brightness, maxBrightness, minBrightness, timer)
-Channel_group WE("WE", WE_CHANNELS, 1, 0, 0, true, OFF, ON, OFF, millis());
-Channel_group DO("DO", DO_CHANNELS, 2, 0, 0, true, OFF, ON, OFF, millis());
-Channel_group THIS("THIS", THIS_CHANNELS, 2, 0, 0, true, OFF, ON, OFF, millis());
-Channel_group FOR("FOR", FOR_CHANNELS, 1, 0, 0, true, OFF, ON, OFF, millis());
-Channel_group LOVE("LOVE", LOVE_CHANNELS, 7, 0, 0, true, OFF, ON, OFF, millis());
-Channel_group AND("AND", AND_CHANNELS, 1, 0, 0, true, OFF, ON, OFF, millis());
-Channel_group MONEY("MONEY", MONEY_CHANNELS, 5, 0, 0, true, OFF, ON, OFF, millis());
+Channel_group WE("WE", WE_CHANNELS, 1, 0, 0, true, OFF, ON, OFF, systemTime);
+Channel_group DO("DO", DO_CHANNELS, 2, 0, 0, true, OFF, ON, OFF, systemTime);
+Channel_group THIS("THIS", THIS_CHANNELS, 2, 0, 0, true, OFF, ON, OFF, systemTime);
+Channel_group FOR("FOR", FOR_CHANNELS, 1, 0, 0, true, OFF, ON, OFF, systemTime);
+Channel_group LOVE("LOVE", LOVE_CHANNELS, 7, 0, 0, true, OFF, ON, OFF, systemTime);
+Channel_group AND("AND", AND_CHANNELS, 1, 0, 0, true, OFF, ON, OFF, systemTime);
+Channel_group MONEY("MONEY", MONEY_CHANNELS, 5, 0, 0, true, OFF, ON, OFF, systemTime);
 
-Channel_group STAR("STAR", STAR_CHANNELS, 5, 0, 0, true, OFF, ON, OFF, millis());
-Channel_group TRACK("TRACK", TRACK_CHANNELS, 6, 0, 0, true, OFF, ON, OFF, millis());
-Channel_group TRACK_TOP("TRACK_TOP", TRACK_TOP_CHANNELS, 3, 0, 0, true, OFF, ON, OFF, millis());
-Channel_group TRACK_BOTTOM("TRACK_BOTTOM", TRACK_BOTTOM_CHANNELS, 3, 0, 0, true, OFF, ON, OFF, millis());
-Channel_group LVE("LVE", LVE_CHANNELS, 4, 0, 0, true, OFF, ON, OFF, millis());
-Channel_group HEART("HEART", HEART_CHANNELS, 3, 0, 0, true, OFF, ON, OFF, millis());
+Channel_group STAR("STAR", STAR_CHANNELS, 5, 0, 0, true, OFF, ON, OFF, systemTime);
+Channel_group TRACK("TRACK", TRACK_CHANNELS, 6, 0, 0, true, OFF, ON, OFF, systemTime);
+Channel_group TRACK_TOP("TRACK_TOP", TRACK_TOP_CHANNELS, 3, 0, 0, true, OFF, ON, OFF, systemTime);
+Channel_group TRACK_BOTTOM("TRACK_BOTTOM", TRACK_BOTTOM_CHANNELS, 3, 0, 0, true, OFF, ON, OFF, systemTime);
+Channel_group LVE("LVE", LVE_CHANNELS, 4, 0, 0, true, OFF, ON, OFF, systemTime);
+Channel_group HEART("HEART", HEART_CHANNELS, 3, 0, 0, true, OFF, ON, OFF, systemTime);
 
-Channel_group BACK("BACK", BACK_CHANNELS, 1, 0, 0, true, OFF, ON, OFF, millis());
+Channel_group BACK("BACK", BACK_CHANNELS, 1, 0, 0, true, OFF, ON, OFF, systemTime);
 
-Channel_group PINBALL("PINBALL", PINBALL_CHANNELS, 12, 0, 0, true, OFF, ON, OFF, millis());
+Channel_group PINBALL("PINBALL", PINBALL_CHANNELS, 12, 0, 0, true, OFF, ON, OFF, systemTime);
 
 #endif
 

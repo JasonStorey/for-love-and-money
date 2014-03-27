@@ -11,8 +11,13 @@ Channel_group::Channel_group(char *name, int *channels, int numOfChannels, int p
   _maxBrightness = maxBrightness;
   _minBrightness = minBrightness;
   _timer = timer;
+  _systemTime = timer;
   _systemBrightness = 1.0;
   R = (100 * log10(2)) / (log10((_minBrightness - _maxBrightness)));
+}
+
+void Channel_group::updateSystemTime(unsigned long systemTime) {
+  _systemTime = systemTime;
 }
 
 void Channel_group::set(int brightness) {
@@ -211,8 +216,8 @@ int Channel_group::addFactors(int n, int reps) {
 }
 
 boolean Channel_group::intervalElapsed(long interval) {
-  if(millis() - _timer > interval) {
-    _timer = millis();
+  if(_systemTime - _timer > interval) {
+    _timer = _systemTime;
     return true;
   } else {
     return false; 

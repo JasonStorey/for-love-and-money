@@ -82,7 +82,7 @@ int User_input::readButtonState() {
 
 int User_input::readInfiniteEncoder() {
   if(millis() - timer > 3) {
-    timer = millis(); 
+    timer = millis();
   } else {
     return encoderPosition * sensitivity;
   }

@@ -32,11 +32,12 @@ class User_input {
     int _prevButtonState4;
     
     int val; 
-    int encoder0PinA;
-    int encoder0PinB;
-    int encoder0Pos;
-    int encoder0PinALast;
-    int n;
+    int encoderPinA;
+    int encoderPinB;
+    int encoderPosition;
+    int pinAPrev;
+    int debouceVal;
+    int pinAVal;
     int sensitivity;
     
 };

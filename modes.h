@@ -78,7 +78,6 @@ void fadeMode(int time) {
   DO.fade(1 + time, 100);
   THIS.fade(1 + time, 100);
   FOR.fade(1 + time, 100);
-//  HEART.fade(30, 100);  
   LVE.fade(1 + time, 100);
   HEART.play(1 + time, 5, true, false);
   AND.fade(1 + time, 100);  

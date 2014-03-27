@@ -35,7 +35,7 @@ void loop() {
   
   if(now.minute() == 0) {
 //    Serial.print(now.hour());
-//    Serial.print(":");    
+//    Serial.print(":");
 //    Serial.print(now.minute());
 //    Serial.print(":");
 //    Serial.print(now.second());
@@ -44,7 +44,6 @@ void loop() {
   } else {
     setMode(input.readButtonState());
   }
-  
   runMode(input.readPot(), input.readInfiniteEncoder());
   
   Tlc.update();

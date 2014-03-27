@@ -31,13 +31,14 @@ int User_input::init() {
   sensitivity = 4;
   
   val; 
-  encoder0PinA = 8;
-  encoder0PinB = 7;
-  encoder0Pos = 0;
-  encoder0PinALast = LOW;
-  n = LOW;
-  pinMode(encoder0PinA, INPUT);
-  pinMode(encoder0PinB, INPUT);
+  encoderPinA = 8;
+  encoderPinB = 7;
+  encoderPosition = 0;
+  pinAPrev = LOW;
+  debouceVal = LOW;
+  pinAVal = LOW;
+  pinMode(encoderPinA, INPUT);
+  pinMode(encoderPinB, INPUT);
 }
 
 int User_input::readPot() {
@@ -78,28 +79,29 @@ int User_input::readButtonState() {
 }
 
 int User_input::readInfiniteEncoder() {
-  int temp = encoder0Pos;
-  n = digitalRead(encoder0PinA);
-  if ((encoder0PinALast == LOW) && (n == HIGH)) {
-    if (digitalRead(encoder0PinB) == LOW) {
-      encoder0Pos--;
+  int tempPos = encoderPosition;
+  pinAVal = digitalRead(encoderPinA);
+  
+  if ((pinAPrev == LOW) && (pinAVal == HIGH) && (debouceVal = HIGH)) {
+    if (digitalRead(encoderPinB) == LOW) {
+      encoderPosition--;
     } else {
-      encoder0Pos++;
+      encoderPosition++;
     }
     
-    if(encoder0Pos > 0) {
-      temp = encoder0Pos;
+    if(encoderPosition > 0) {
+      tempPos = encoderPosition;
     } else {
-      encoder0Pos = 0;
+      encoderPosition = 0;
     }
     
-    if(encoder0Pos > 15) {
-      encoder0Pos = 15;
+    if(encoderPosition > 15) {
+      encoderPosition = 15;
     }
   } 
-  encoder0PinALast = n;
-  return temp * sensitivity;
+  pinAPrev = debouceVal;
+  debouceVal = pinAVal;
+  return tempPos * sensitivity;
 }
 
 User_input input;
-

@@ -20,6 +20,8 @@ static int BACK_CHANNELS[1] = {30};
 
 static int PINBALL_CHANNELS[12] = {0,1,2,3,4,5,6,7,8,9,10,16};
 
+static int ALL_CHANNELS[31] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30};
+
 unsigned long systemTime = millis();
 
 // (name, channels, numOfChannels, phase, phaseSpeed, asc, brightness, maxBrightness, minBrightness, timer)
@@ -42,5 +44,6 @@ Channel_group BACK("BACK", BACK_CHANNELS, 1, 0, 0, true, OFF, ON, OFF, systemTim
 
 Channel_group PINBALL("PINBALL", PINBALL_CHANNELS, 12, 0, 0, true, OFF, ON, OFF, systemTime);
 
+Channel_group ALL("ALL", ALL_CHANNELS, 31, 0, 0, true, OFF, ON, OFF, systemTime);
 #endif
 

@@ -33,7 +33,7 @@ class User_input {
     
     int val; 
     int encoderPinA;
-    int encoderPinB;
+    int encoderPinB;   
     int encoderPosition;
     int pinAPrev;
     int debounceVal1;  

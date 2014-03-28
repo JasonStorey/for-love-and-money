@@ -2,6 +2,10 @@
 #define Modes_h
 
 int MODE = 0;
+float systemBrightness;
+unsigned long fadeInterval = 0;
+boolean heartBeatReady = false;
+void crudeMode(int time);
 
 void setSystemBrightness(float brightness) {
    
@@ -11,6 +15,7 @@ void setSystemBrightness(float brightness) {
   FOR.setSystemBrightness(brightness);
   HEART.setSystemBrightness(brightness);
   LVE.setSystemBrightness(brightness);
+  LOVE.setSystemBrightness(brightness);
   AND.setSystemBrightness(brightness);
   MONEY.setSystemBrightness(brightness);
   
@@ -21,7 +26,8 @@ void setSystemBrightness(float brightness) {
   TRACK_TOP.setSystemBrightness(brightness);
   TRACK_BOTTOM.setSystemBrightness(brightness);
   
-  PINBALL.setSystemBrightness(brightness);  
+  PINBALL.setSystemBrightness(brightness); 
+  ALL.setSystemBrightness(brightness);   
 }
 
 void updateChannelGroupClocks(unsigned long time) {
@@ -31,6 +37,7 @@ void updateChannelGroupClocks(unsigned long time) {
   FOR.updateSystemTime(time);
   HEART.updateSystemTime(time);
   LVE.updateSystemTime(time);
+  LOVE.updateSystemTime(time);  
   AND.updateSystemTime(time);
   MONEY.updateSystemTime(time);
   
@@ -40,6 +47,7 @@ void updateChannelGroupClocks(unsigned long time) {
   TRACK_BOTTOM.updateSystemTime(time);
   BACK.updateSystemTime(time);
   PINBALL.updateSystemTime(time);  
+  ALL.updateSystemTime(time);  
 }
 
 /*********************** OFF MODE ***********************/
@@ -63,6 +71,7 @@ void initOffMode() {
   TRACK_BOTTOM.configure(0, 0, true, OFF, ON, OFF, systemTime);
 
   PINBALL.configure(0, 0, true, OFF, ON, OFF, systemTime);
+  ALL.configure(0, 0, true, OFF, ON, OFF, systemTime);  
 }
 
 void offMode() {
@@ -80,7 +89,7 @@ void initFadeMode() {
   HEART.configure(10, 0, true, OFF, ON, OFF, systemTime);
   LVE.configure(25, 0, true, OFF, ON, OFF, systemTime);
   HEART.load(pattern1, PATTERN_1_RESOLUTION);
-  
+  LOVE.configure(25, 0, true, OFF, ON, OFF, systemTime);  
   AND.configure(15, 0, true, OFF, ON, OFF, systemTime);
   MONEY.configure(0, 0, true, OFF, ON, OFF, systemTime);
   
@@ -91,7 +100,58 @@ void initFadeMode() {
   BACK.configure(0, 0, true, OFF, ON, OFF, systemTime);   
 }
 
+void initHeartBeat() {
+  WE.configure(10, 0, true, OFF, ON, OFF, systemTime);
+  DO.configure(15, 0, true, OFF, ON, OFF, systemTime);
+  THIS.configure(15, 0, true, OFF, ON, OFF, systemTime);
+  FOR.configure(15, 0, true, OFF, ON, OFF, systemTime);
+  HEART.configure(10, 0, true, OFF, ON, OFF, systemTime);
+  LVE.configure(20, 0, true, OFF, ON, OFF, systemTime);
+  AND.configure(20, 0, true, OFF, ON, OFF, systemTime);
+  MONEY.configure(15, 0, true, OFF, ON, OFF, systemTime);
+  
+  STAR.configure(10, 0, true, OFF, ON, OFF, systemTime);
+  
+  heartBeatReady = true;
+}
+
 void fadeMode(int time) {
+  DateTime now = RTC.now();  
+
+  if(now.minute() == 0 && now.second() < 15) {
+    
+    if(systemBrightness < 0.9) {
+      setSystemBrightness(systemBrightness + 0.1);
+    }
+    
+    if(now.second() < 1) {
+      initOffMode();
+      Tlc.setAll(OFF);
+    }
+    
+    if(now.second() >= 1 && now.second() < 5) {
+//      ALL.fade(2, 50);
+      crudeMode(11);
+    }
+    
+    if(now.second() >= 5 && now.second() < 6) {
+      initOffMode();      
+      Tlc.setAll(OFF);
+    }
+    
+    if(now.second() >= 6 && now.second() < 14) {
+      ALL.fade(40, 100);
+    }
+    
+   if(now.second() >= 14) {
+      initFadeMode();
+      Tlc.setAll(OFF);
+    }
+    
+    return;
+  }
+  
+  
   WE.fade(1 + time, 100);
   DO.fade(1 + time, 100);
   THIS.fade(1 + time, 100);
@@ -113,16 +173,8 @@ void initWaveMode() {
   const int minBrightness = OFF;
   const int middleBrightness = OFF;  
   const int maxBrightness = ON;
-  
-  // phase, phaseSpeed, asc, brightness, maxBrightness, minBrightness, timer
-//  WE.configure(82, 0, true, middleBrightness, maxBrightness, middleBrightness, systemTime);
-//  DO.configure(68, 0, true, middleBrightness, maxBrightness, middleBrightness, systemTime);
-//  THIS.configure(54, 0, true, middleBrightness, maxBrightness, middleBrightness, systemTime);
-//  FOR.configure(42, 0, true, middleBrightness, maxBrightness, middleBrightness, systemTime);
   HEART.configure(0, 0, false, minBrightness, ON, minBrightness, systemTime);
   LVE.configure(0, 0, true, minBrightness, ON, minBrightness, systemTime);
-//  AND.configure(14, 0, true, middleBrightness, maxBrightness, middleBrightness, systemTime);
-//  MONEY.configure(0, 0, true, middleBrightness, maxBrightness, middleBrightness, systemTime);
   
   STAR.configure(0, 0, true, middleBrightness, ON, middleBrightness, systemTime);
   TRACK.configure(0, 0, true, minBrightness, ON, minBrightness, systemTime); 
@@ -133,21 +185,13 @@ void initWaveMode() {
 }
 
 void waveMode(int time) {
-//  WE.fade(20 + time, 100);
-//  DO.fade(20 + time, 100);
-//  THIS.fade(20 + time, 100);
-//  FOR.fade(20 + time, 100);
   HEART.wave(15 + time, 40, 1.04, 1.0);  
   LVE.wave(1 + time, 40, 1.42, 1.0);
-//  AND.fade(20 + time, 100);
-//  MONEY.fade(20 + time, 100);
   
   STAR.wave(15 + time, 70, 0.5, 1.0);
   BACK.setPercentage(100);
   TRACK_TOP.wave(1 + time, 50, 1.95, 0.7);
   TRACK_BOTTOM.wave(1 + time, 50, 1.95, 0.7);
-//  TRACK_TOP.phase(100, -1);
-//  TRACK_BOTTOM.phase(100, -1);
   PINBALL.play(5 + time, 2, false, true);
 
 }
@@ -192,14 +236,14 @@ void initCrudeMode() {
 
 void crudeMode(int time) {
   WE.flash(15 + time * 5, ON);
-  DO.fade(1 + time * 5, 100);
-  THIS.fade(1 + time * 5, 100);
-  FOR.fade(1 + time * 5, 100);
+  DO.fade(1 + time * 4, 100);
+  THIS.fade(1 + time * 4, 100);
+  FOR.fade(1 + time * 4, 100);
   HEART.phase(1 + time * 5, 1);
   LVE.phase(1 + time * 5, 1);
-  AND.fade(1 + time * 5, 100);
+  AND.fade(1 + time * 4, 100);
   
-  MONEY.pinball(200, 5);
+  MONEY.pinball(130 + time * 10, 5);
   
   STAR.phase(1 + time * 5, 1);
   BACK.setPercentage(80);
@@ -260,7 +304,7 @@ void setMode(int mode) {
 
 void runMode(int potReading, int infiniteEncoderReading) {
   
-  float systemBrightness = (float)potReading / 1023;
+  systemBrightness = (float)potReading / 1023;
   setSystemBrightness(systemBrightness);
   updateChannelGroupClocks(systemTime);
   

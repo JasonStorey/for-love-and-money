@@ -81,7 +81,7 @@ int User_input::readButtonState() {
 }
 
 int User_input::readInfiniteEncoder() {
-  if(millis() - timer > 3) {
+  if(millis() - timer > 2) {
     timer = millis();
   } else {
     return encoderPosition * sensitivity;
@@ -91,6 +91,8 @@ int User_input::readInfiniteEncoder() {
   pinAVal = digitalRead(encoderPinA);
   
   if ((pinAPrev == LOW) && (debounceVal1 = HIGH) && (pinAVal == HIGH)) {
+    Serial.println("Rotating");
+
     if (digitalRead(encoderPinB) == LOW) {
       encoderPosition--;
     } else {

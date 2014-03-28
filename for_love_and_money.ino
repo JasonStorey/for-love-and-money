@@ -31,19 +31,8 @@ void setup() {
 
 void loop() {
   systemTime = millis();
-  DateTime now = RTC.now();
   
-  if(now.minute() == 0) {
-//    Serial.print(now.hour());
-//    Serial.print(":");
-//    Serial.print(now.minute());
-//    Serial.print(":");
-//    Serial.print(now.second());
-//    Serial.println(""); 
-    setMode(5);
-  } else {
-    setMode(input.readButtonState());
-  }
+  setMode(input.readButtonState());
   runMode(input.readPot(), input.readInfiniteEncoder());
   
   Tlc.update();

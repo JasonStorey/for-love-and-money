@@ -118,8 +118,7 @@ void initHeartBeat() {
 void fadeMode(int time) {
   DateTime now = RTC.now();  
 
-  if(now.minute() == 0 && now.second() < 15) {
-    
+  if(now.minute() == 0 && now.second() < 15) {    
     if(systemBrightness < 0.9) {
       setSystemBrightness(systemBrightness + 0.1);
     }
@@ -130,7 +129,6 @@ void fadeMode(int time) {
     }
     
     if(now.second() >= 1 && now.second() < 5) {
-//      ALL.fade(2, 50);
       crudeMode(11);
     }
     
@@ -164,7 +162,7 @@ void fadeMode(int time) {
   STAR.wave(6 + time, 200, 0.5, 1.0);
   TRACK_TOP.wave(21 + time, 200, 0.9, 0.5);
   TRACK_BOTTOM.wave(21 + time, 200, 0.9, 0.5);  
-  BACK.setPercentage(80);
+  BACK.setPercentage(100);
 }
 
 /*********************** WAVE MODE ***********************/
